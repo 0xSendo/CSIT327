@@ -1,14 +1,14 @@
 System Requirements and Specifications
 1. Functional Requirements
-1.1. User Registration
-Description: Students must be able to register for an account.
-Input: Student ID, password, first name, last name, course.
-Output: Login page.
-Processing: Verify credentials, create user sessions.
-Security: Password encryption, session management.
-1.2. User Login
-Description: Students must be able to log in using their credentials.
-Input: Student ID, password.
+  1.1. User Registration
+  Description: Students must be able to register for an account.
+  Input: Student ID, password, first name, last name, course.
+  Output: Login page.
+  Processing: Verify credentials, create user sessions.
+  Security: Password encryption, session management.
+  1.2. User Login
+  Description: Students must be able to log in using their credentials.
+  Input: Student ID, password.
 Output: User dashboard.
 Processing: Verify credentials, create user sessions.
 Security: Password encryption, session management.
