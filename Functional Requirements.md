@@ -1,4 +1,4 @@
-# H1 Functional Requirements
+# Functional Requirements
    - [ ] 1.1. User Registration
    - [ ] 1.2. User Login
    - [ ] 1.3. Task Management
