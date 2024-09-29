@@ -8,4 +8,4 @@
 
 [Gnatt Chart](Gantt-Chart.xlsx)
 [ERD]
-[UX/UI]
+[UX/UI](https://www.figma.com/design/2axIfrvskVSAeCO6U2j7RO/Untitled?node-id=0-1&t=SK59hRDDq0a7CAFe-1)
