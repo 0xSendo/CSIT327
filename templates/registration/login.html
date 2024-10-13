@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Academate</title>
-</head>
-<body>
-    <h1>Login</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
-    </form>
-</body>
-</html>
+{% extends "basic_generic.html" %}
+
+{% block content %}
+    <div style="display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: aquamarine;">
+<center>
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+</center>
+</div>
+{% endblock %}
