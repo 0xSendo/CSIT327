@@ -1,0 +1,203 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background */
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    padding: 20px;
+    background-color: #e0f6ff;
+    opacity: 0.8;
+    background-image: radial-gradient(circle at center center, rgba(198,201,245,0.10), rgba(237,245,255,0.10)), repeating-radial-gradient(circle at center center,rgba(198,201,245,0.10), rgba(198,201,245,0.10), 10px, transparent 20px, transparent 10px);
+    background-blend-mode: multiply;
+}
+
+.mainthing{
+    margin: 30px;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+h1 {
+    color: #19242a;
+    font-size: 70px;
+    text-transform: none;
+    font-style: italic;
+}
+.gridbackground{
+    background-color: #133A7D; 
+    padding: 50px;
+    border-radius: 0px 5px 5px 5px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between grid items */
+     
+}
+
+.assignment-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.subject-box {
+    width: 100%;
+    height: 50px; /* Fixed height for the color box */
+    border-radius: 4px;
+    margin-bottom: 10px; /* Space between color box and text */
+}
+
+.assignment-card h3 {
+    margin: 10px 0;
+    color: #19242a;
+}
+
+.assignment-card p {
+    color: #666;
+}
+
+.assignment-card button {
+    padding: 10px;
+    background-color: #19242a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px; /* Space between buttons */
+}
+
+.assignment-card button:hover {
+    background-color: #4b5c6c; /* Darker shade on hover */
+}
+
+.notification {
+    position: sticky;
+    top: 20px; 
+    right: 20px;
+    margin-top: 20px;
+    float: right;
+
+}
+
+
+.notification button {
+    padding: 10px;
+    background-color: #19242a;  
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buttonAss {
+    font-size: 105%;
+    padding: 10px;
+    background-color: #133A7D;  
+    color: white;
+    border: none;
+    border-radius: 4px 4px 0px 0px;
+    cursor: pointer;
+}
+
+
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    border-radius: 8px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #35424a;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+
+ /* Style the navigation bar */
+ .navbar {
+    width: 100%;
+    background: #133A7D;
+background: -moz-linear-gradient(left, #133A7D 0%, #87A8D4 50%, #133A7D 100%);
+background: -webkit-linear-gradient(left, #133A7D 0%, #87A8D4 50%, #133A7D 100%);
+background: linear-gradient(to right, #133A7D 0%, #87A8D4 50%, #133A7D 100%);
+    overflow: auto;
+  }
+  
+  /* Navbar links */
+  .navbar a {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Navbar links on mouse-over */
+  .navbar a:hover {
+    background-color:#362442;
+  }
+  
+  /* Current/active navbar link */
+  .active {
+    background-color: #04aaa7;
+  }
+  .navbar a.split {
+    float: right;
+    color: white;
+  }
+  
+  /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+  @media screen and (max-width: 500px) {
+    .navbar a {
+      float: none;
+      display: block;
+    }
+  } 
+
+ 
