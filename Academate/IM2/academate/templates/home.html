@@ -5,70 +5,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="static/css/home.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 </head>
 <body>
+    <div class="navbar">
+        <a href="{% url 'navigation' %}#about-us">About Us</a>
+        <a href="{% url 'navigation' %}#contacts">Contacts</a>
+        <a href="{% url 'navigation' %}#social-media">Social Media</a>
+        <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
+    </div>
+
     <div class="main-content">
         <div class="container">
+            <h1>Academate Dashboard</h1>
             <div class="notification">
                 <button id="notificationBtn" style="display: none;"></button>
             </div>
-            <h1>Academate</h1>
-            <div class="navbar">
-                <a href="#"><i class="fa fa-fw fa-home"></i> Home</a>
-                <a href="#"><i class="fa fa-fw fa-book"></i> Journal</a>
-                <a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
-                <a href="{% url 'logout' %}" class="split"><i class="fa fa-fw fa-user"></i> Logout</a>
+            <div class="grid" id="assignmentGrid">
+                <!-- Assignment cards will appear here -->
             </div>
-            <div class="mainthing">
-                <button id="newAssignmentBtn" class="buttonAss">Add New Assignment</button>
-                <div class="gridbackground">
-                    <div class="grid" id="assignmentGrid">
-                        <!-- Existing assignment cards will be dynamically rendered here -->
-                    </div>
-                    
 
-                    <!-- New Assignment Modal -->
-                    <div id="myModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h2>Add New Assignment</h2>
-                            <form id="assignmentForm">
-                                <label for="subject_code">Subject Code:</label>
-                                <input type="text" id="subject_code" name="subject_code" required>
-                                <label for="name">Assignment Name:</label>
-                                <input type="text" id="name" name="name" required>
-                                <label for="due_date">Due Date:</label>
-                                <input type="date" id="due_date" name="due_date" required>
-                                <input type="submit" value="Add Assignment">
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Edit Modal -->
-                    <div id="editModal" class="modal">
-                        <div class="modal-content">
-                            <span class="close" id="editClose">&times;</span>
-                            <h2>Edit Assignment</h2>
-                            <form id="editAssignmentForm">
-                                <label for="editSubjectCode">Subject Code:</label>
-                                <input type="text" id="editSubjectCode" name="editSubjectCode" required>
-                                <label for="editName">Assignment Name:</label>
-                                <input type="text" id="editName" name="editName" required>
-                                <label for="editDueDate">Due Date:</label>
-                                <input type="date" id="editDueDate" name="editDueDate" required>
-                                <input type="submit" value="Update Assignment">
-                            </form>
-                        </div>
-                    </div>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Add New Assignment</h2>
+                    <form id="assignmentForm">
+                        <label for="subject_code">Subject Code:</label>
+                        <input type="text" id="subject_code" name="subject_code" required>
+                        <label for="name">Assignment Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="due_date">Due Date:</label>
+                        <input type="date" id="due_date" name="due_date" required>
+                        <input type="submit" value="Add Assignment">
+                    </form>
                 </div>
             </div>
+
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="editClose">&times;</span>
+                    <h2>Edit Assignment</h2>
+                    <form id="editAssignmentForm">
+                        <label for="editSubjectCode">Subject Code:</label>
+                        <input type="text" id="editSubjectCode" name="editSubjectCode" required>
+                        <label for="editName">Assignment Name:</label>
+                        <input type="text" id="editName" name="editName" required>
+                        <label for="editDueDate">Due Date:</label>
+                        <input type="date" id="editDueDate" name="editDueDate" required>
+                        <input type="submit" value="Update Assignment">
+                    </form>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2024 Academate. All Rights Reserved.</p>
+                <button id="newAssignmentBtn">Add New Assignment</button>
+                <a href="{% url 'journal' %}">
+                    <button>Add Your Journal</button>
+                </a>
+                <a href="{% url 'landing' %}">
+                    <button id="logoutBtn">Logout</button>
+                </a>
+            </footer>
         </div>
     </div>
-    <footer>
-        <p>&copy; 2024 Academate. All Rights Reserved.</p>
-    </footer>
+
     <script>
         let assignments = JSON.parse(localStorage.getItem('assignments')) || [
             { subjectCode: "MATH101", name: "Math Homework", dueDate: "2024-10-25" },
@@ -99,31 +100,35 @@
         }
 
         function renderAssignments() {
-            const grid = document.getElementById('assignmentGrid');
-            grid.innerHTML = '';
-
+            const assignmentGrid = document.getElementById('assignmentGrid');
+            assignmentGrid.innerHTML = '';
             assignments.forEach((assignment, index) => {
                 const card = document.createElement('div');
                 card.className = 'assignment-card';
                 card.innerHTML = `
-                    <div class="subject-box" style="background-color: ${getRandomColor()};"></div>
-                    <h3>${assignment.name}</h3>
-                    <p class="subject-code">${assignment.subjectCode}</p>
-                    <p class="due-date">${assignment.dueDate}</p>
-                    <button class="edit-btn" onclick="editAssignment(${index})">Edit</button>
-                    <button class="mark-done-btn" onclick="markAsDone(${index})">Mark as Done</button>
+                    <h3 style="background-color: ${getRandomColor()}">${assignment.subjectCode}</h3>
+                    <p>${assignment.name}</p>
+                    <p>Due Date: ${assignment.dueDate}</p>
+                    <button onclick="editAssignment(${index})">Edit</button>
+                    <button onclick="deleteAssignment(${index})">Mark as done</button>
                 `;
-                grid.appendChild(card);
+                assignmentGrid.appendChild(card);
             });
         }
 
-        function markAsDone(index) {
-            if (confirm("Are you sure you want to mark this assignment as done?")) {
-                assignments.splice(index, 1); // Remove the assignment from the array
-                localStorage.setItem('assignments', JSON.stringify(assignments));
-                updateNotification();
-                renderAssignments();
-            }
+        function addAssignment(event) {
+            event.preventDefault();
+            const subjectCode = document.getElementById('subject_code').value;
+            const name = document.getElementById('name').value;
+            const dueDate = document.getElementById('due_date').value;
+
+            const newAssignment = { subjectCode, name, dueDate };
+            assignments.push(newAssignment);
+            localStorage.setItem('assignments', JSON.stringify(assignments));
+
+            document.getElementById('myModal').classList.remove('show');
+            renderAssignments();
+            updateNotification();
         }
 
         function editAssignment(index) {
@@ -132,62 +137,46 @@
             document.getElementById('editName').value = assignment.name;
             document.getElementById('editDueDate').value = assignment.dueDate;
 
-            const editModal = document.getElementById("editModal");
-            editModal.style.display = "block";
-
-            document.getElementById('editAssignmentForm').onsubmit = function(e) {
-                e.preventDefault();
-                const editedSubjectCode = document.getElementById('editSubjectCode').value;
-                const editedName = document.getElementById('editName').value;
-                const editedDueDate = document.getElementById('editDueDate').value;
-
-                assignments[index] = { subjectCode: editedSubjectCode, name: editedName, dueDate: editedDueDate };
-                localStorage.setItem('assignments', JSON.stringify(assignments));
-                updateNotification();
-                renderAssignments();
-                editModal.style.display = "none"; // Close the edit modal
-            };
+            document.getElementById('editModal').classList.add('show');
+            document.getElementById('editAssignmentForm').onsubmit = (event) => updateAssignment(event, index);
         }
 
-        document.getElementById('newAssignmentBtn').onclick = function() {
-            const modal = document.getElementById("myModal");
-            modal.style.display = "block";
-        };
+        function updateAssignment(event, index) {
+            event.preventDefault();
+            const subjectCode = document.getElementById('editSubjectCode').value;
+            const name = document.getElementById('editName').value;
+            const dueDate = document.getElementById('editDueDate').value;
 
-        document.getElementById('assignmentForm').onsubmit = function(e) {
-            e.preventDefault();
-            const subjectCode = document.getElementById('subject_code').value;
-            const name = document.getElementById('name').value;
-            const dueDate = document.getElementById('due_date').value;
-
-            assignments.push({ subjectCode, name, dueDate });
+            assignments[index] = { subjectCode, name, dueDate };
             localStorage.setItem('assignments', JSON.stringify(assignments));
-            updateNotification();
+
+            document.getElementById('editModal').classList.remove('show');
             renderAssignments();
+            updateNotification();
+        }
 
-            document.getElementById('myModal').style.display = "none"; // Close the modal
-        };
+        function deleteAssignment(index) {
+            assignments.splice(index, 1);
+            localStorage.setItem('assignments', JSON.stringify(assignments));
+            renderAssignments();
+            updateNotification();
+        }
 
-        const modalCloseButtons = document.querySelectorAll('.close');
-        modalCloseButtons.forEach(button => {
-            button.onclick = function() {
-                this.closest('.modal').style.display = "none"; // Close modal on button click
-            };
+        document.getElementById('newAssignmentBtn').addEventListener('click', () => {
+            document.getElementById('myModal').classList.add('show');
         });
 
-        window.onclick = function(event) {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                if (event.target == modal) {
-                    modal.style.display = "none"; // Close modal if user clicks outside of it
-                }
+        document.querySelectorAll('.close').forEach(element => {
+            element.addEventListener('click', () => {
+                document.getElementById('myModal').classList.remove('show');
+                document.getElementById('editModal').classList.remove('show');
             });
-        };
+        });
 
-        window.onload = function() {
-            renderAssignments();
-            updateNotification();
-        };
+        document.getElementById('assignmentForm').addEventListener('submit', addAssignment);
+
+        renderAssignments();
+        updateNotification();
     </script>
 </body>
 </html>

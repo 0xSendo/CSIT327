@@ -2,22 +2,11 @@
     <!DOCTYPE html>
     <html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Academate</title>
-        <style>
-            logbackground {
-                background-color: #e0f6ff;
-                opacity: 0.8;
-            background-image: radial-gradient(circle at center center, rgba(198,201,245,0.10), rgba(237,245,255,0.10)), repeating-radial-gradient(circle at center center,rgba(198,201,245,0.10), rgba(198,201,245,0.10), 10px, transparent 20px, transparent 10px);
-            background-blend-mode: multiply;
-            }
-        </style>
     </head>
-    <body class="logbackground">
+    <body>
         <div class = "header">
             {% if user.is_authenticated %}
-                <a href = "/"></a>
             {% else %}
                 <a href = "/login/"></a>
                 <a href = "/register/"></a>

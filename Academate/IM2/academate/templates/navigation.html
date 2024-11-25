@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/navigation.css' %}">
+    <title>Navigation</title>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#about-us">About Us</a>
+        <a href="#contacts">Contacts</a>
+        <a href="#social-media">Social Media</a>
+        <a href="#our-goal">Our Goal</a>
+        <a href="/" class="back-to-home">Back to Home</a> <!-- Added Back to Home button -->
+    </div>
+
+    <!-- Sections -->
+    <section id="about-us">
+        <h2>About Us</h2>
+        <p>At Academate, we believe in empowering students to stay organized and on top of their academic responsibilities. Our platform provides tools that help you manage assignments, track deadlines, and stay focused on your goals. We aim to make student life less stressful by helping you manage your academic tasks efficiently.</p>
+        <p>Our team of dedicated developers, designers, and educators work tirelessly to improve the user experience and ensure that Academate remains the best academic task management tool.</p>
+    </section>
+
+    <section id="contacts">
+        <h2>Contact Us</h2>
+        <p>We are always here to assist you. Reach out to us via any of the following methods:</p>
+        <div class="contact-item">
+            <img src="https://img.icons8.com/ios/50/000000/email-open.png" alt="Email Icon">
+            <span>Email: support@academate.com</span>
+        </div>
+        <div class="contact-item">
+            <img src="https://img.icons8.com/ios/50/000000/phone.png" alt="Phone Icon">
+            <span>Phone: 22-2950-134</span>
+        </div>
+        <div class="contact-item">
+            <img src="https://img.icons8.com/ios/50/000000/marker.png" alt="Location Icon">
+            <span>N. Bacalso Avenue, Cebu City, Philippines</span>
+        </div>
+    </section>
+
+    <section id="social-media">
+        <h2>Follow Us on Social Media</h2>
+        <p>Stay updated with the latest news and tips from Academate on our social media platforms:</p>
+        <ul>
+            <li><a href="https://facebook.com/academate" target="_blank">Facebook</a></li>
+            <li><a href="https://twitter.com/academate" target="_blank">Twitter</a></li>
+            <li><a href="https://instagram.com/academate" target="_blank">Instagram</a></li>
+            <li><a href="https://linkedin.com/company/academate" target="_blank">LinkedIn</a></li>
+        </ul>
+    </section>
+
+    <section id="our-goal">
+        <h2>Our Goal</h2>
+        <p>Our mission is to help students stay on track with their academic goals. We aim to reduce the stress associated with managing assignments by providing an intuitive and reliable platform. Our goal is to ensure students never miss a deadline and stay organized throughout their academic journey.</p>
+        <p>By offering features like task reminders, progress tracking, and easy-to-use scheduling, we’re here to support students in reaching their full potential.</p>
+    </section>
+
+</body>
+</html>

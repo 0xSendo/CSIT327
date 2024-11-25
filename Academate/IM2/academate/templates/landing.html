@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Academate</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/landing.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="#about-us">About Us</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+        <a href="#goal">Our Goal</a>
+    </div>
+
+    <div class="hero">
+        <h1>Welcome to Academate</h1>
+        <p>Your Ultimate Assignment Management Tool</p>
+        <button class="cta-button" onclick="window.location.href='{% url 'login' %}'">Get Started</button>
+    </div>
+
+    <div class="features-section">
+        <div class="image-slider">
+            <img src="{% static 'images/library1.jpg' %}" alt="Slider Image 1">
+            <img src="{% static 'images/library2.jpg' %}" alt="Slider Image 2">
+            <img src="{% static 'images/library3.jpg' %}" alt="Slider Image 3">
+        </div>
+        <div class="feature-grid">
+            <h2>Our Features</h2>
+            <div class="feature-item">
+                <h3>Track Assignments</h3>
+                <p>Keep track of all your assignments and due dates in one place.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Edit and Update Tasks</h3>
+                <p>Manage and update your tasks easily with our intuitive interface.</p>
+            </div>
+            <div class="feature-item">
+                <h3>Journal Entries</h3>
+                <p>Maintain a personal journal to document your academic journey.</p>
+            </div>
+            <div class="feature-item">
+                <h3>User-Friendly Interface</h3>
+                <p>Experience a clean and modern design that's easy to navigate.</p>
+            </div>
+        </div>
+        <div class="image-slider">
+            <img src="{% static 'images/library4.jpg' %}" alt="Slider Image 4">
+            <img src="{% static 'images/library5.jpg' %}" alt="Slider Image 5">
+            <img src="{% static 'images/library6.jpg' %}" alt="Slider Image 6">
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Academate. All Rights Reserved.</p>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+        <a href="#contact">Contact Us</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const features = document.querySelectorAll('.feature-item, .image-slider');
+            features.forEach((feature, index) => {
+                setTimeout(() => {
+                    feature.classList.add('show');
+                }, index * 200); // Delay each feature's animation for a staggered effect
+            });
+
+            const sliders = document.querySelectorAll('.image-slider');
+            sliders.forEach(slider => {
+                let index = 0;
+                const images = slider.querySelectorAll('img');
+                setInterval(() => {
+                    images[index].style.display = 'none';
+                    index = (index + 1) % images.length;
+                    images[index].style.display = 'block';
+                }, 3000); // Change image every 3 seconds
+            });
+        });
+    </script>
+</body>
+</html>

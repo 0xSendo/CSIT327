@@ -1,82 +1,10 @@
-<!-- templates/registration/registration.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4; /* Light background */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 300px; /* Set a fixed width */
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 20px;
-            color: #35424a; /* Dark color for headings */
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input[type="text"], input[type="email"], input[type="password"] {
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
-            border-color: #35424a; /* Change border color on focus */
-            outline: none; /* Remove outline */
-        }
-
-        button {
-            padding: 10px;
-            background-color: #35424a;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #4b5c6c; /* Darker shade on hover */
-        }
-
-        .redirect-text {
-            margin-top: 15px;
-        }
-
-        .redirect-text a {
-            color: #35424a;
-            text-decoration: none;
-        }
-
-        .redirect-text a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
 </head>
 <body>
     {% include 'basic_generic.html' %}

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
 
+# User Manager
 class UserManager(BaseUserManager):
     def create_user(self, username, password, **extra_fields):
         if not username or not password:
@@ -19,6 +20,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
         return self.create_user(username, password, **extra_fields)
 
+# Custom User Model
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
     first_name = models.CharField(max_length=30)  # New field
@@ -33,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-# New Assignment Model
+# Assignment Model
 class Assignment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link assignment to a user
     name = models.CharField(max_length=255)
@@ -42,3 +44,14 @@ class Assignment(models.Model):
 
     def __str__(self):
         return self.name
+
+# Journal Model
+class Journal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

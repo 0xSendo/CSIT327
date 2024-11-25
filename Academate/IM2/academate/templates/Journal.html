@@ -1,0 +1,37 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/journal.css' %}">
+    <title>Journal</title>
+</head>
+<body>
+    <h1>Your Journal</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Use form's auto-rendering -->
+        <button type="submit">Add Entry</button>
+    </form>
+
+    <h2>Previous Entries</h2>
+    <ul>
+        {% for entry in journal_entries %}
+            <li>
+                <h3>{{ entry.title }}</h3> <!-- Display the title of the entry -->
+                <p>{{ entry.content }}</p> <!-- Display the content field -->
+                <div class="entry-buttons">
+                    <a href="{% url 'edit_journal_entry' entry.id %}" class="button">Edit</a>
+                    <a href="{% url 'delete_journal_entry' entry.id %}" class="button delete">Delete</a>
+                </div>
+            </li>
+        {% empty %}
+            <li class="empty">No entries yet. Start writing your thoughts!</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+</body>
+</html>

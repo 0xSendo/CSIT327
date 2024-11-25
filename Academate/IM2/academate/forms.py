@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
 from .models import User, Assignment
-
+from .models import Journal
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(
         widget=forms.PasswordInput,
@@ -48,3 +48,7 @@ class AssignmentForm(forms.ModelForm):
         if due_date < timezone.now().date():
             raise forms.ValidationError("Due date cannot be in the past.")
         return due_date
+class JournalForm(forms.ModelForm):
+    class Meta:
+        model = Journal
+        fields = ['title', 'content']
