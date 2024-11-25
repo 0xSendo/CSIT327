@@ -2,7 +2,7 @@
 Academate is an online website where students can put in their assignments as a reminder
 
 # Features
-   - Task Management
+   - Assignment tracking
    - Expense Recording
    - Deadline Tracking
 
