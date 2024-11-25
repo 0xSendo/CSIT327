@@ -14,19 +14,37 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# IM2/urls.py
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from academate import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    # Admin Panel
     path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),  # Login view
-    path('logout/', views.custom_logout, name='logout'),
-    path('register/', views.render_register, name='register'),  # Registration view
-    path('', views.render_home, name='home'),  # Home page
-    path('assignments/new/', views.create_assignment, name='create_assignment'),  # New assignment view
-    path('assignments/delete/<int:assignment_id>/', views.delete_assignment, name='delete_assignment'),  # Delete assignment view
-   
+    
+    # Auth-related Routes
+    path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='landing'), name='logout'),
+    path('logout/', views.custom_logout_view, name='logout'),
+    path('register/', views.render_register, name='register'),
+    
+    # Landing Page
+    path('', views.render_landing, name='landing'),
+    
+    # Home Page
+    path('home/', views.render_home, name='home'),
+    
+    # Journal Routes
+    path('journal/', views.journal_view, name='journal'),
+    path('journal/edit/<int:entry_id>/', views.edit_journal_entry, name='edit_journal_entry'),
+    path('journal/delete/<int:entry_id>/', views.delete_journal_entry, name='delete_journal_entry'),
+    
+    # Assignment Routes
+    path('create-assignment/', views.create_assignment, name='create_assignment'),
+    path('assignment/done/<int:assignment_id>/', views.mark_assignment_done, name='mark_assignment_done'),
+    path('assignment/delete/<int:assignment_id>/', views.delete_assignment, name='delete_assignment'),
+    
+    # Navigation Route
+    path('navigation/', views.render_navigation, name='navigation'),
 ]
