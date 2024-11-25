@@ -3,7 +3,7 @@ Academate is an online website where students can put in their assignments as a 
 
 # Features
    - Assignment tracking
-   - Expense Recording
+   - Journal
    - Deadline Tracking
 
 # Installation
