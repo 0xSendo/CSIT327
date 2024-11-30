@@ -9,7 +9,9 @@ Academate is an online website where students can put in their assignments and s
 ## Installation
 To install, you need to download Python.
 
-```pip install ```
+```
+pip install
+```
 
 ## Documentation
 [Gnatt Chart](https://docs.google.com/spreadsheets/d/1ca0ybWjHeHQHuCkDHali0feMHRCaOgq4j0gzN7t9cD8/edit?usp=sharing)
