@@ -1,164 +1,186 @@
-  /* General Body Styling */
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f9;
+/* General Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9fafc;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
     min-height: 100vh;
-    justify-content: flex-start;
+    padding: 30px; /* Increased padding for better spacing */
 }
 
-/* Header Styling */
-h1 {
-    margin-top: 40px;
-    font-size: 2.8rem;
-    color: #2d3e50;
-    font-weight: bold;
-}
-
-h2 {
-    margin-top: 40px;
-    font-size: 1.8rem;
-    color: #2d3e50;
-    font-weight: 600;
-}
-
-/* Form Container */
-form {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 650px;
-    text-align: center;
-    margin-top: 20px;
-}
-
-textarea, input[type="text"] {
+/* General Layout */
+.container {
+    display: flex;
+    max-width: 1400px; /* Increased width for a larger layout */
     width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    border: 1px solid #d1d8e0;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    resize: vertical;
+    background-color: #fff;
+    border-radius: 16px; /* Rounded corners for a modern look */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
+    overflow: hidden;
+    padding: 20px; /* Added internal padding */
 }
 
-input[type="text"]:focus, textarea:focus {
-    border-color: #56c3f3;
-    outline: none;
+/* Sidebar Styling */
+.sidebar {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
+    padding: 25px; /* Increased padding for breathing room */
+    flex: 0 0 350px; /* Increased width for better spacing */
+    height: auto;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    border-radius: 12px; /* Added rounded corners */
 }
 
-button {
-    padding: 12px 20px;
-    background-color: #56c3f3;
-    color: white;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+.sidebar h2 {
+    font-size: 2rem; /* Larger font for the title */
+    margin-bottom: 20px;
 }
 
-button:hover {
-    background-color: #3398d4;
-}
-
-/* Previous Entries List */
-ul {
+.sidebar ul {
     list-style: none;
     padding: 0;
-    margin: 30px 0;
-    width: 90%;
-    max-width: 650px;
+    margin: 0;
 }
 
-li {
-    background-color: white;
+.sidebar li {
+    background-color: #ffffff22;
+    border-radius: 12px;
     margin-bottom: 15px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
-    color: #333;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    position: relative;
+    padding: 15px 20px; /* Increased padding for larger items */
+    transition: background 0.3s ease-in-out;
 }
 
-li:last-child {
-    margin-bottom: 0;
+.sidebar li:hover {
+    background-color: #ffffff33; /* Softer hover effect */
 }
 
-li.empty {
-    color: #aaa;
-    text-align: center;
+.sidebar h3 {
+    font-size: 1.4rem; /* Larger text for titles */
+    margin-bottom: 8px;
 }
 
-/* Button Styling for Edit and Delete */
-.entry-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
+.sidebar p {
+    font-size: 1rem; /* Slightly larger content font */
+    color: #cce4ff;
 }
 
+/* Entry Buttons */
 .entry-buttons .button {
-    padding: 10px 15px;
-    margin-left: 10px;
-    background-color: #56c3f3;
-    color: white;
-    border-radius: 5px;
-    font-size: 1rem;
     text-decoration: none;
-    transition: background-color 0.3s ease-in-out;
+    padding: 10px 16px; /* Larger buttons */
+    border-radius: 25px; /* Softer, rounded buttons */
+    color: #fff;
+    font-weight: 500;
+    background: #28a745;
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 .entry-buttons .button:hover {
-    background-color: #3398d4;
+    background: #218838;
+    transform: translateY(-2px);
 }
 
-.entry-buttons .button.delete {
-    background-color: #e74c3c;
+.entry-buttons .delete {
+    background-color: #dc3545;
 }
 
-.entry-buttons .button.delete:hover {
-    background-color: #c0392b;
+.entry-buttons .delete:hover {
+    background-color: #c82333;
 }
 
-/* Back Button Styling */
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 40px; /* Increased padding */
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3rem; /* Larger header font */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 40px; /* More space below header */
+}
+
+/* Form Styles */
+.entry-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px; /* More spacing between inputs */
+}
+
+form input, form textarea {
+    padding: 15px 20px; /* Larger input padding */
+    border: 1.5px solid #ddd; /* Slightly thicker border */
+    border-radius: 10px; /* Softer corners */
+    font-size: 1.2rem; /* Increased font size */
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+form input:focus, form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-submit {
+    padding: 12px 20px; /* Larger button size */
+    font-size: 1.2rem; /* Larger button text */
+    border: none;
+    border-radius: 25px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background: #0056b3;
+    transform: translateY(-3px);
+}
+
+/* Back Link */
 .back-link {
     margin-top: 30px;
-    font-size: 1.2rem;
-    color: white;
-    background-color: #56c3f3;
-    padding: 12px 20px;
-    border-radius: 5px;
+    color: #007bff;
     text-decoration: none;
-    transition: background-color 0.3s ease-in-out;
+    display: inline-block;
+    font-size: 1.1rem;
 }
 
 .back-link:hover {
-    background-color: #3398d4;
+    text-decoration: underline;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
+/* Filter Input */
+.filter-container {
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    h2 {
-        font-size: 1.6rem;
-    }
+#filter-input {
+    width: 100%;
+    max-width: 350px; /* Larger input field width */
+    padding: 12px 18px; /* Increased padding */
+    font-size: 1.2rem; /* Larger font size */
+    border: 1.5px solid #ddd; /* Thicker border */
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
 
-    .entry-buttons .button {
-        font-size: 0.9rem;
-    }
-
-    .back-link {
-        font-size: 1.1rem;
-    }
+#filter-input:focus {
+    border-color: #007bff;
+    outline: none;
 }
