@@ -6,25 +6,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="navbar">
-        <a href="{% url 'navigation' %}#about-us">About Us</a>
-        <a href="{% url 'navigation' %}#contacts">Contacts</a>
-        <a href="{% url 'navigation' %}#social-media">Social Media</a>
-        <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
+    <nav class="navbar">
+        <div class="a">
+            <a href="/home"><i class="fa fa-fw fa-home"></i> Home</a>
+            <a href="{% url 'navigation' %}#about-us">About Us</a>
+            <a href="{% url 'navigation' %}#contacts">Contacts</a>
+            <a href="{% url 'navigation' %}#social-media">Social Media</a>
+            <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
+        </div>
+        <div class="split">
+            <a id="profileBtn" role="button" href="#"> <i class="fa fa-fw fa-user"></i>Profile</a>
+        </div>
+    </nav>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="profileClose">&times;</span>
+            <h2>Profile</h2>
+            <p>Welcome to your profile!</p>
+            
+            <!-- Logout Button Inside the Profile Modal -->
+            <a href="{% url 'logout' %}">
+                <button class="logout-button">Logout</button>
+            </a>
+    
+            <!-- Edit Profile Button -->
+            <a href="{% url 'profile' %}">
+                <button class="edit-profile-button">Edit Profile</button>
+            </a>
+        </div>
     </div>
 
     <div class="main-content">
         <div class="container">
-            <h1>Academate Dashboard</h1>
+            <h1>Welcome to Academate, {{ username }}!</h1>
+
+            <!-- Buttons and Sorting Section -->
+            <div class="action-buttons">
+                <!-- Button for Finished Assignments -->
+                <button id="finishedAssignmentsBtn" class="finished-assignment-button">Finished Assignments</button>
+            
+                <!-- Button for Adding New Assignment -->
+                <button id="newAssignmentBtn" class="add-assignment-button">Add New Assignment</button>
+            
+                <a href="{% url 'journal' %}">
+                    <button class="journal-button">Add Your Journal</button>
+                </a>
+            
+                <!-- Filter Dropdown -->
+                <div class="filter-section">
+                    <label for="filter">Sort By:</label>
+                    <select id="filter" onchange="filterAssignments()">
+                        <option value="a-z">A-Z</option>
+                        <option value="nearest-deadline">Nearest Deadline</option>
+                        <option value="far-deadline">Furthest Deadline</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Finished Assignments Modal -->
+            <div id="finishedModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="finishedClose">&times;</span>
+                    <h2>Finished Assignments</h2>
+                    <ul id="finishedList">
+                        <!-- List of finished assignments will appear here -->
+                    </ul>
+                </div>
+            </div>
+            
             <div class="notification">
                 <button id="notificationBtn" style="display: none;"></button>
             </div>
+
             <div class="grid" id="assignmentGrid">
                 <!-- Assignment cards will appear here -->
             </div>
 
+            <!-- Modal for adding assignments -->
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
@@ -41,12 +104,13 @@
                 </div>
             </div>
 
+            <!-- Modal for editing assignments -->
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="editClose">&times;</span>
                     <h2>Edit Assignment</h2>
                     <form id="editAssignmentForm">
-                        <label for="editSubjectCode">Subject Code:</label>
+                        <label for="editSubjectCode">Course Code:</label>
                         <input type="text" id="editSubjectCode" name="editSubjectCode" required>
                         <label for="editName">Assignment Name:</label>
                         <input type="text" id="editName" name="editName" required>
@@ -59,33 +123,28 @@
 
             <footer>
                 <p>&copy; 2024 Academate. All Rights Reserved.</p>
-                <button id="newAssignmentBtn">Add New Assignment</button>
-                <a href="{% url 'journal' %}">
-                    <button>Add Your Journal</button>
-                </a>
-                <a href="{% url 'landing' %}">
-                    <button id="logoutBtn">Logout</button>
-                </a>
             </footer>
         </div>
     </div>
 
     <script>
+        // Existing assignments and finished assignments stored in localStorage
         let assignments = JSON.parse(localStorage.getItem('assignments')) || [
             { subjectCode: "MATH101", name: "Math Homework", dueDate: "2024-10-25" },
             { subjectCode: "SCI102", name: "Science Project", dueDate: "2024-10-30" },
             { subjectCode: "ENG103", name: "English Essay", dueDate: "2024-10-28" },
         ];
-
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
+    
+        let finishedAssignments = JSON.parse(localStorage.getItem('finishedAssignments')) || [];
+    
+        // Subject color mapping for each subject
+        const subjectColors = {
+            "MATH101": "#3498db",
+            "SCI102": "#e74c3c",
+            "ENG103": "#2ecc71"
+        };
+    
+        // Function to update notification (next assignment)
         function updateNotification() {
             const closestAssignment = assignments.reduce((prev, curr) => {
                 return new Date(curr.dueDate) < new Date(prev.dueDate) ? curr : prev;
@@ -98,84 +157,208 @@
                 notificationBtn.style.display = "none";
             }
         }
-
+    
+        // Function to render assignments
         function renderAssignments() {
-            const assignmentGrid = document.getElementById('assignmentGrid');
-            assignmentGrid.innerHTML = '';
-            assignments.forEach((assignment, index) => {
-                const card = document.createElement('div');
-                card.className = 'assignment-card';
-                card.innerHTML = `
-                    <h3 style="background-color: ${getRandomColor()}">${assignment.subjectCode}</h3>
-                    <p>${assignment.name}</p>
-                    <p>Due Date: ${assignment.dueDate}</p>
-                    <button onclick="editAssignment(${index})">Edit</button>
-                    <button onclick="deleteAssignment(${index})">Mark as done</button>
+    const assignmentGrid = document.getElementById('assignmentGrid');
+    assignmentGrid.innerHTML = ''; // Clear current assignments
+    
+    if (assignments.length === 0) {
+        const message = document.createElement('div');
+        message.className = 'no-assignments-message';
+        message.innerHTML = "<p>You have finished all of your tasks, go touch some grass.</p>";
+        assignmentGrid.appendChild(message);
+    } else {
+        assignments.forEach((assignment, index) => {
+            const card = document.createElement('div');
+            card.className = 'assignment-card'; // Add the animation class here
+            const subjectColor = subjectColors[assignment.subjectCode] || "#35424a";
+            card.innerHTML = `
+                <h3 style="background-color: ${subjectColor}">${assignment.subjectCode}</h3>
+                <p>${assignment.name}</p>
+                <p>Due Date: ${assignment.dueDate}</p>
+                <button onclick="editAssignment(${index})">Edit</button>
+                <button onclick="markAsDone(${index})">Mark as Done</button>
+            `;
+            assignmentGrid.appendChild(card);
+        });
+    }
+}
+
+function editAssignment(index) {
+    // Get the assignment to be edited
+    const assignment = assignments[index];
+    
+    // Open the edit modal
+    document.getElementById('editModal').classList.add('show');
+    
+    // Populate the form with the current assignment values
+    document.getElementById('editSubjectCode').value = assignment.subjectCode;
+    document.getElementById('editName').value = assignment.name;
+    document.getElementById('editDueDate').value = assignment.dueDate;
+
+    // Save the index of the assignment being edited in a hidden input for later use
+    document.getElementById('editAssignmentForm').dataset.index = index;
+}
+function editAssignment(index) {
+    // Get the assignment to be edited
+    const assignment = assignments[index];
+    
+    // Open the edit modal
+    document.getElementById('editModal').classList.add('show');
+    
+    // Populate the form with the current assignment values
+    document.getElementById('editSubjectCode').value = assignment.subjectCode;
+    document.getElementById('editName').value = assignment.name;
+    document.getElementById('editDueDate').value = assignment.dueDate;
+
+    // Save the index of the assignment being edited in a hidden input for later use
+    document.getElementById('editAssignmentForm').dataset.index = index;
+}
+
+// Function to handle the form submission for editing the assignment
+document.getElementById('editAssignmentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    // Get the updated data from the form
+    const index = this.dataset.index;
+    const subjectCode = document.getElementById('editSubjectCode').value;
+    const name = document.getElementById('editName').value;
+    const dueDate = document.getElementById('editDueDate').value;
+    
+    // Update the assignment
+    assignments[index] = { subjectCode, name, dueDate };
+    
+    // Save the updated assignments back to localStorage
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+    
+    // Close the modal and re-render assignments
+    document.getElementById('editModal').classList.remove('show');
+    renderAssignments();
+    updateNotification();
+});
+    
+        // Function to render finished assignments
+        function renderFinishedAssignments() {
+            const finishedList = document.getElementById('finishedList');
+            finishedList.innerHTML = '';
+            finishedAssignments.forEach((assignment, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <p>${assignment.name} (Due: ${assignment.dueDate})</p>
+                    <button onclick="undoMarkAsDone(${index})">Undo</button>
+                    <button onclick="removeFinishedAssignment(${index})">Remove</button> <!-- Remove Button -->
                 `;
-                assignmentGrid.appendChild(card);
+                finishedList.appendChild(listItem);
             });
         }
-
+    
+        // Function to remove a finished assignment
+        function removeFinishedAssignment(index) {
+            finishedAssignments.splice(index, 1);
+            localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
+            renderFinishedAssignments();
+        }
+    
+        // Function to add a new assignment
         function addAssignment(event) {
             event.preventDefault();
             const subjectCode = document.getElementById('subject_code').value;
             const name = document.getElementById('name').value;
             const dueDate = document.getElementById('due_date').value;
-
+    
             const newAssignment = { subjectCode, name, dueDate };
             assignments.push(newAssignment);
             localStorage.setItem('assignments', JSON.stringify(assignments));
-
+    
             document.getElementById('myModal').classList.remove('show');
             renderAssignments();
             updateNotification();
         }
+    
+        // Function to mark an assignment as done
+        function markAsDone(index) {
+    const isConfirmed = confirm("Are you sure you want to mark this assignment as done?");
+    if (!isConfirmed) return; // If the user cancels, do nothing
 
-        function editAssignment(index) {
-            const assignment = assignments[index];
-            document.getElementById('editSubjectCode').value = assignment.subjectCode;
-            document.getElementById('editName').value = assignment.name;
-            document.getElementById('editDueDate').value = assignment.dueDate;
+    const finishedAssignment = assignments[index];
+    finishedAssignments.push(finishedAssignment);
+    assignments.splice(index, 1);
 
-            document.getElementById('editModal').classList.add('show');
-            document.getElementById('editAssignmentForm').onsubmit = (event) => updateAssignment(event, index);
-        }
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+    localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
 
-        function updateAssignment(event, index) {
-            event.preventDefault();
-            const subjectCode = document.getElementById('editSubjectCode').value;
-            const name = document.getElementById('editName').value;
-            const dueDate = document.getElementById('editDueDate').value;
-
-            assignments[index] = { subjectCode, name, dueDate };
+    renderAssignments();
+    renderFinishedAssignments();
+    updateNotification();
+}
+    
+        // Function to undo the "Mark as Done" action
+        function undoMarkAsDone(index) {
+            const undoneAssignment = finishedAssignments[index];
+            assignments.push(undoneAssignment);
+            finishedAssignments.splice(index, 1);
+    
             localStorage.setItem('assignments', JSON.stringify(assignments));
-
-            document.getElementById('editModal').classList.remove('show');
+            localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
+    
             renderAssignments();
+            renderFinishedAssignments();
             updateNotification();
         }
-
-        function deleteAssignment(index) {
-            assignments.splice(index, 1);
-            localStorage.setItem('assignments', JSON.stringify(assignments));
+    
+        // Function to filter assignments
+        function filterAssignments() {
+            const filterValue = document.getElementById('filter').value;
+            if (filterValue === 'a-z') {
+                assignments.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (filterValue === 'nearest-deadline') {
+                assignments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+            } else if (filterValue === 'far-deadline') {
+                assignments.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
+            }
             renderAssignments();
-            updateNotification();
         }
-
-        document.getElementById('newAssignmentBtn').addEventListener('click', () => {
-            document.getElementById('myModal').classList.add('show');
+    
+        // Event listener for the "Finished Assignments" button
+        document.getElementById('finishedAssignmentsBtn').addEventListener('click', () => {
+            document.getElementById('finishedModal').classList.add('show');
         });
-
-        document.querySelectorAll('.close').forEach(element => {
-            element.addEventListener('click', () => {
+    
+        // Event listener for opening profile modal
+        document.getElementById('profileBtn').addEventListener('click', (event) => {
+            event.preventDefault();
+            document.getElementById('profileModal').classList.add('show');
+        });
+    
+        // Event listeners for closing modals
+        document.getElementById('finishedClose').addEventListener('click', () => {
+            document.getElementById('finishedModal').classList.remove('show');
+        });
+    
+        document.getElementById('profileClose').addEventListener('click', () => {
+            document.getElementById('profileModal').classList.remove('show');
+        });
+    
+        // Close modals when clicking outside
+        document.querySelectorAll('.close').forEach(span => {
+            span.addEventListener('click', () => {
                 document.getElementById('myModal').classList.remove('show');
-                document.getElementById('editModal').classList.remove('show');
+                document.getElementById('finishedModal').classList.remove('show');
             });
         });
-
+    
+        // Event listener for the "Add New Assignment" button
+        document.getElementById('newAssignmentBtn').addEventListener('click', function() {
+            document.getElementById('myModal').classList.add('show');
+        });
+    
+        // Event listener for submitting the add assignment form
         document.getElementById('assignmentForm').addEventListener('submit', addAssignment);
-
+    
+        // Render the assignments initially
         renderAssignments();
+        renderFinishedAssignments();
         updateNotification();
     </script>
 </body>
