@@ -39,7 +39,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_URL = '/static/'
 # Redirect after login/logout
 LOGIN_REDIRECT_URL = '/home/'
-LOGOUT_REDIRECT_URL = None
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
