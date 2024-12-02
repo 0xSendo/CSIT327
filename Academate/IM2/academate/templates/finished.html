@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="center-section">
+            <a href="{% url 'navigation' %}#about-us">About Us</a>
+            <a href="{% url 'navigation' %}#contacts">Contacts</a>
+            <a href="{% url 'navigation' %}#social-media">Social Media</a>
+            <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
+        </div>
+        <div class="right-section">
+            <button id="profileBtn" class="profile-btn">Profile</button>
+        </div>
+    </nav>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="profileClose">&times;</span>
+            <h2>Profile</h2>
+            <p>Welcome to your profile!</p>
+            <a href="{% url 'logout' %}">
+                <button class="logout-button">Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- Finished Assignments Section -->
+        <div class="finished-assignments-section">
+            <h2>Finished Assignments</h2>
+            <div id="finishedAssignments">
+                <!-- Finished assignments will be listed here -->
+            </div>
+        </div>
+
+        <!-- Assignment Section -->
+        <div class="assignment-section">
+            <h1>Welcome to Academate {{ username }}!</h1>
+
+            <!-- Buttons and Sorting Section -->
+            <div class="action-buttons">
+                <button id="newAssignmentBtn" class="add-assignment-button">Add New Assignment</button>
+                <a href="{% url 'journal' %}">
+                    <button class="journal-button">Add Your Journal</button>
+                </a>
+
+                <!-- Filter Dropdown -->
+                <div class="filter-section">
+                    <label for="filter">Sort By:</label>
+                    <select id="filter" onchange="filterAssignments()">
+                        <option value="a-z">A-Z</option>
+                        <option value="nearest-deadline">Nearest Deadline</option>
+                        <option value="far-deadline">Furthest Deadline</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="notification">
+                <button id="notificationBtn" style="display: none;"></button>
+            </div>
+
+            <div class="grid" id="assignmentGrid">
+                <!-- Assignment cards will appear here -->
+            </div>
+
+            <!-- Modal for Adding Assignments -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Add New Assignment</h2>
+                    <form id="assignmentForm">
+                        <label for="subject_code">Subject Code:</label>
+                        <input type="text" id="subject_code" name="subject_code" required>
+                        <label for="name">Assignment Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="due_date">Due Date:</label>
+                        <input type="date" id="due_date" name="due_date" required>
+                        <input type="submit" value="Add Assignment">
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal for Editing Assignments -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="editClose">&times;</span>
+                    <h2>Edit Assignment</h2>
+                    <form id="editAssignmentForm">
+                        <label for="editSubjectCode">Course Code:</label>
+                        <input type="text" id="editSubjectCode" name="editSubjectCode" required>
+                        <label for="editName">Assignment Name:</label>
+                        <input type="text" id="editName" name="editName" required>
+                        <label for="editDueDate">Due Date:</label>
+                        <input type="date" id="editDueDate" name="editDueDate" required>
+                        <input type="submit" value="Update Assignment">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Academate. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        let assignments = JSON.parse(localStorage.getItem('assignments')) || [
+            { subjectCode: "MATH101", name: "Math Homework", dueDate: "2024-10-25" },
+            { subjectCode: "SCI102", name: "Science Project", dueDate: "2024-10-30" },
+            { subjectCode: "ENG103", name: "English Essay", dueDate: "2024-10-28" },
+        ];
+        let finishedAssignments = JSON.parse(localStorage.getItem('finishedAssignments')) || [];
+
+        function renderAssignments() {
+            const assignmentGrid = document.getElementById('assignmentGrid');
+            assignmentGrid.innerHTML = '';
+            assignments.forEach((assignment, index) => {
+                const card = document.createElement('div');
+                card.className = 'assignment-card';
+                card.innerHTML = `
+                    <h3>${assignment.subjectCode}</h3>
+                    <p>${assignment.name}</p>
+                    <p>Due Date: ${assignment.dueDate}</p>
+                    <button onclick="editAssignment(${index})">Edit</button>
+                    <button onclick="deleteAssignment(${index})">Mark as Done</button>
+                `;
+                assignmentGrid.appendChild(card);
+            });
+        }
+
+        function renderFinishedAssignments() {
+            const finishedAssignmentsContainer = document.getElementById('finishedAssignments');
+            finishedAssignmentsContainer.innerHTML = '';
+            finishedAssignments.forEach((assignment, index) => {
+                const finishedCard = document.createElement('div');
+                finishedCard.className = 'finished-assignment-card';
+                finishedCard.innerHTML = `
+                    <h3>${assignment.subjectCode}</h3>
+                    <p>${assignment.name}</p>
+                    <p>Completed on: ${new Date().toLocaleDateString()}</p>
+                    <button onclick="removeFinishedAssignment(${index})">Remove</button>
+                `;
+                finishedAssignmentsContainer.appendChild(finishedCard);
+            });
+        }
+
+        function deleteAssignment(index) {
+            const finishedAssignment = assignments[index];
+            assignments.splice(index, 1);
+            finishedAssignments.push(finishedAssignment);
+            localStorage.setItem('assignments', JSON.stringify(assignments));
+            localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
+            renderAssignments();
+            renderFinishedAssignments();
+        }
+
+        function removeFinishedAssignment(index) {
+            finishedAssignments.splice(index, 1);
+            localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
+            renderFinishedAssignments();
+        }
+
+        renderAssignments();
+        renderFinishedAssignments();
+    </script>
+</body>
+</html>
