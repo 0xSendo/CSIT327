@@ -7,10 +7,13 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 
 
+
 # Home view to render assignments
 def render_home(request):
     assignments = Assignment.objects.filter(user=request.user)  # Fetch assignments for the logged-in user
-    return render(request, 'home.html', {'assignments': assignments})
+    username = request.user.username  # Get the logged-in user's username
+    return render(request, 'home.html', {'assignments': assignments, 'username': username})
+
 
 # Registration view
 @csrf_protect
@@ -98,12 +101,50 @@ def delete_journal_entry(request, entry_id):
 # Logout view
 def custom_logout_view(request):
     logout(request)
-    return redirect('landing.html')
+    return redirect('landing')  # Correct the redirect to the URL name
 
-
+# Navigation view (if applicable)
 def render_navigation(request):
     return render(request, 'navigation.html')
 
 # Landing page view
 def render_landing(request):
     return render(request, 'landing.html')
+
+# Profile view (if applicable)
+def render_profile(request):
+    return render(request, 'profile.html')
+
+def edit_profile(request):
+    return render(request, 'edit_profile.html')
+
+
+def update_profile(request):
+    if request.method == 'POST':
+        # Get the logged-in user
+        user = request.user
+        
+        # Safely update the user fields from the POST data
+        user.name = request.POST.get('name', user.name)
+        user.course = request.POST.get('course', user.course)
+        user.address = request.POST.get('address', user.address)
+        user.birthdate = request.POST.get('birthdate', user.birthdate)
+        user.username = request.POST.get('username', user.username)
+        
+        # Only set the password if it's provided
+        password = request.POST.get('password')
+        if password:
+            user.set_password(password)
+        
+        # Save the updated user object
+        user.save()
+
+        messages.success(request, "Profile updated successfully!")
+        return redirect('home')  # Redirect to the home page after saving
+    else:
+        # If it's a GET request, show the profile edit form
+        return render(request, 'edit_profile.html')
+    
+def some_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login') 
