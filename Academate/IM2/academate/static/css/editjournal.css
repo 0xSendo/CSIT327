@@ -1,69 +1,88 @@
- /* Styling similar to previous code */
- body {
+/* General Styling */
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f6f9;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
 
+/* Container Styling */
+.edit-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+    margin: 20px;
+}
+
+/* Header Styling */
 h1 {
-    margin-top: 30px;
+    margin-top: 0;
+    margin-bottom: 30px;
     font-size: 2.8rem;
     color: #2d3e50;
     font-weight: bold;
 }
 
+/* Form Styling */
 form {
-    background-color: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 650px;
-    text-align: center;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-textarea {
+form input, form textarea {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     font-size: 1rem;
     border: 1px solid #d1d8e0;
     border-radius: 8px;
-    margin-bottom: 15px;
-    resize: vertical;
-    min-height: 120px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
 }
 
+form input:focus, form textarea:focus {
+    border-color: #56c3f3;
+    outline: none;
+}
+
+/* Button Styling */
 button {
-    padding: 12px 20px;
+    padding: 15px 20px;
     background-color: #56c3f3;
     color: white;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
 }
 
 button:hover {
     background-color: #3398d4;
+    transform: translateY(-2px);
 }
 
+/* Error Message Styling */
 .form-errors {
     color: red;
     margin-bottom: 20px;
 }
 
+/* Back Link Styling */
 .back-link {
-    margin-top: 30px;
-    font-size: 1.1rem;
+    margin-top: 20px;
+    font-size: 1.2rem;
     color: #56c3f3;
     text-decoration: none;
+    display: inline-block;
 }
 
 .back-link:hover {
