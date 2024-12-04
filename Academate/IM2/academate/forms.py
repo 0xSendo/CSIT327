@@ -4,6 +4,10 @@ from .models import User, Assignment
 from .models import Journal
 from django.contrib.auth.models import User
 
+from django import forms
+from django.contrib.auth.hashers import make_password
+from .models import User
+
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(
         widget=forms.PasswordInput,
@@ -16,10 +20,16 @@ class UserRegistrationForm(forms.ModelForm):
         required=True,  
         error_messages={'required': 'Please confirm your password.'}  
     )
+    course = forms.CharField(max_length=100, required=True, label="Course")
+    year_level = forms.ChoiceField(
+        choices=[('1', '1st Year'), ('2', '2nd Year'), ('3', '3rd Year'), ('4', '4th Year')],
+        required=True, 
+        label="Year Level"
+    )
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'password', 'confirm_password']
+        fields = ['username', 'first_name', 'last_name', 'password', 'confirm_password', 'course', 'year_level']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -40,6 +50,7 @@ class UserRegistrationForm(forms.ModelForm):
 
         return user
 
+
 class AssignmentForm(forms.ModelForm):
     class Meta:
         model = Assignment
@@ -57,9 +68,9 @@ class JournalForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        model = User  # Ensure this is the correct User model
+        fields = ['username', 'first_name', 'last_name', 'password']  # Remove 'email' if it's not defined in the model
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password'].widget = forms.PasswordInput() 
+        self.fields['password'].widget = forms.PasswordInput()
