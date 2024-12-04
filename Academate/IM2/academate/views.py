@@ -2,18 +2,26 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from .forms import UserRegistrationForm, AssignmentForm, JournalForm
 from .models import Assignment, Journal
+from django.contrib.auth import login, logout  # Ensure login is imported
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
-
+from django.contrib import messages
+from .models import Profile 
 
 
 # Home view to render assignments
 def render_home(request):
-    assignments = Assignment.objects.filter(user=request.user)  # Fetch assignments for the logged-in user
-    username = request.user.username  # Get the logged-in user's username
-    return render(request, 'home.html', {'assignments': assignments, 'username': username})
-
+    assignments = Assignment.objects.filter(user=request.user)
+    username = request.user.username
+    # Access course and year_level directly from the User model
+    course = request.user.course or 'Unknown'  # Use default 'Unknown' if course is None
+    year_level = request.user.year_level or 'Unknown'  # Use default 'Unknown' if year_level is None
+    return render(request, 'home.html', {
+        'assignments': assignments,
+        'username': username,
+        'course': course,
+        'year_level': year_level
+    })
 
 # Registration view
 @csrf_protect
@@ -21,12 +29,34 @@ def render_register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            # Create the user with the provided fields
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])  # Hash the password
+            user.save()  # Save the user object
+
+            # Create a profile for the user
+            Profile.objects.create(user=user)  # You can set default values for profile fields if needed
+
+            # Optionally, you can log the user in automatically
+            login(request, user)
+            return redirect('login')  # Redirect to login after successful registration
     else:
         form = UserRegistrationForm()
 
     return render(request, 'register.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == "POST":
+        form = UserLoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            if user is not None:
+                auth_login(request, user)
+                return redirect('home')  # Redirect to home or wherever after successful login
+    else:
+        form = UserLoginForm()
+    return render(request, 'login.html', {'form': form})
 
 # Assignment creation view
 @csrf_protect
@@ -113,38 +143,58 @@ def render_landing(request):
 
 # Profile view (if applicable)
 def render_profile(request):
-    return render(request, 'profile.html')
+    user = request.user  # Get the logged-in user
+    return render(request, 'profile.html', {'user': user})
 
 def edit_profile(request):
-    return render(request, 'edit_profile.html')
+    return render(request, 'profile.html')
+
 
 
 def update_profile(request):
+    user = request.user  # Fetch the logged-in user
+
     if request.method == 'POST':
-        # Get the logged-in user
-        user = request.user
-        
-        # Safely update the user fields from the POST data
-        user.name = request.POST.get('name', user.name)
-        user.course = request.POST.get('course', user.course)
-        user.address = request.POST.get('address', user.address)
+        # Safely update user fields with provided data
+        user.first_name = request.POST.get('name', user.first_name)
+        user.course = request.POST.get('course', getattr(user, 'course', ''))
+        user.address = request.POST.get('address', getattr(user, 'address', ''))
         user.birthdate = request.POST.get('birthdate', user.birthdate)
         user.username = request.POST.get('username', user.username)
-        
-        # Only set the password if it's provided
+
+        # Handle password update
         password = request.POST.get('password')
         if password:
             user.set_password(password)
-        
+
         # Save the updated user object
         user.save()
 
+        # Add a success message
         messages.success(request, "Profile updated successfully!")
-        return redirect('home')  # Redirect to the home page after saving
-    else:
-        # If it's a GET request, show the profile edit form
-        return render(request, 'edit_profile.html')
+        return redirect('profile')  # Redirect to profile page to reload the data with the updated user
+
+    # Render the form with the current user data
+    return render(request, 'profile.html', {'user': user})
     
 def some_view(request):
     if not request.user.is_authenticated:
         return redirect('login') 
+
+
+# Delete journal entry
+@login_required
+def delete_journal_entry(request, entry_id):
+    journal_entry = get_object_or_404(Journal, id=entry_id, user=request.user)
+    journal_entry.delete()
+    return redirect('journal')
+
+@login_required
+def delete_journal_entry(request, entry_id):
+    try:
+        journal_entry = get_object_or_404(Journal, id=entry_id, user=request.user)
+        journal_entry.delete()
+        return redirect('journal')
+    except Exception as e:
+        print(f"Error deleting journal entry: {e}")
+        return redirect('journal')
