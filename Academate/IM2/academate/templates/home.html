@@ -43,7 +43,8 @@
 
     <div class="main-content">
         <div class="container">
-            <h1>Welcome to Academate, {{ username }}!</h1>
+             <h1>Welcome, {{ username }}</h1>
+    <p>{{ course }} - {{ year_level }}</p>
 
             <!-- Buttons and Sorting Section -->
             <div class="action-buttons">
@@ -254,11 +255,13 @@ document.getElementById('editAssignmentForm').addEventListener('submit', functio
         }
     
         // Function to remove a finished assignment
-        function removeFinishedAssignment(index) {
-            finishedAssignments.splice(index, 1);
-            localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
-            renderFinishedAssignments();
-        }
+        // Function to remove a finished assignment
+    function removeFinishedAssignment(index) {
+    finishedAssignments.splice(index, 1);  // Remove the finished assignment from the array
+    localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));  // Update localStorage
+    renderFinishedAssignments();  // Re-render the finished assignments list
+}
+
     
         // Function to add a new assignment
         function addAssignment(event) {
