@@ -20,10 +20,12 @@
         <h2>Edit Profile</h2>
 
         <!-- Success/Error Message -->
-        {% if success %}
-            <div class="message success">Profile updated successfully!</div>
-        {% elif error %}
-            <div class="message error">{{ error }}</div>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
         {% endif %}
 
         <form action="{% url 'update_profile' %}" method="POST" id="edit-profile-form">
@@ -31,42 +33,41 @@
             
             <div class="input-group">
                 <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" value="{{ user.name }}" required>
+                <input type="text" id="name" name="name" value="{{ user.first_name }}">
             </div>
-
+            
             <div class="input-group">
                 <label for="course">Course and Year:</label>
-                <input type="text" id="course" name="course" value="{{ user.course }}" required>
+                <input type="text" id="course" name="course" value="{{ user.course }}">
             </div>
-
+            
             <div class="input-group">
                 <label for="address">Address:</label>
-                <input type="text" id="address" name="address" value="{{ user.address }}" required>
+                <input type="text" id="address" name="address" value="{{ user.address }}">
             </div>
-
+            
             <div class="input-group">
                 <label for="birthdate">Birthdate:</label>
-                <input type="date" id="birthdate" name="birthdate" value="{{ user.birthdate }}" required>
+                <input type="date" id="birthdate" name="birthdate" value="{{ user.birthdate|date:'Y-m-d' }}">
             </div>
-
-            <!-- Changed Email to Username -->
+            
             <div class="input-group">
                 <label for="username">Username:</label>
-                <input type="text" id="username" name="username" value="{{ user.username }}" required>
+                <input type="text" id="username" name="username" value="{{ user.username }}">
             </div>
-
+        
             <div class="input-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password">
                 <small>Password must be at least 6 characters.</small>
             </div>
-
+        
             <div class="form-actions">
                 <button type="submit" class="submit-button">Save Changes</button>
-                <!-- Cancel Button now directs to home.html -->
                 <button type="button" class="cancel-button" onclick="window.location.href='{% url 'home' %}';">Cancel</button>
             </div>
         </form>
+        
     </div>
 
 </body>
