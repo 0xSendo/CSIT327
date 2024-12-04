@@ -34,6 +34,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'IM2.urls'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_URL = '/static/'
