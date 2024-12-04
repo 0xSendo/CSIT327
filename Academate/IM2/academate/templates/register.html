@@ -12,7 +12,52 @@
         <h2>User Registration</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}  
+
+            <!-- Username, First Name, Last Name, Email, Password fields (automatically rendered by form.as_p) -->
+            {{ form.username.errors }}
+            <div class="input-group">
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+            </div>
+
+            {{ form.first_name.errors }}
+            <div class="input-group">
+                <label for="{{ form.first_name.id_for_label }}">First Name:</label>
+                {{ form.first_name }}
+            </div>
+
+            {{ form.last_name.errors }}
+            <div class="input-group">
+                <label for="{{ form.last_name.id_for_label }}">Last Name:</label>
+                {{ form.last_name }}
+            </div>
+
+            {{ form.password.errors }}
+            <div class="input-group">
+                <label for="{{ form.password.id_for_label }}">Password:</label>
+                {{ form.password }}
+            </div>
+
+            {{ form.confirm_password.errors }}
+            <div class="input-group">
+                <label for="{{ form.confirm_password.id_for_label }}">Confirm Password:</label>
+                {{ form.confirm_password }}
+            </div>
+
+            <!-- Course Field -->
+            {{ form.course.errors }}
+            <div class="input-group">
+                <label for="{{ form.course.id_for_label }}">Course:</label>
+                {{ form.course }}
+            </div>
+            
+            {{ form.year_level.errors }}
+            <div class="input-group">
+                <label for="{{ form.year_level.id_for_label }}">Year Level:</label>
+                {{ form.year_level }}
+            </div>
+            
+
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
         <p class="redirect-text">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
