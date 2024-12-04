@@ -23,18 +23,29 @@ class UserManager(BaseUserManager):
 # Custom User Model
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=100, unique=True)
-    first_name = models.CharField(max_length=30)  # New field
-    last_name = models.CharField(max_length=30)   # New field
-    is_staff = models.BooleanField(default=False)  
-
+    first_name = models.CharField(max_length=30)  # Existing field
+    last_name = models.CharField(max_length=30)   # Existing field
+    birthdate = models.DateField(null=True, blank=True)  # New field
+    is_staff = models.BooleanField(default=False)
+    course = models.CharField(max_length=100, blank=True, null=True)
+    year_level = models.CharField(max_length=2, choices=[('1', '1st Year'), ('2', '2nd Year'), ('3', '3rd Year'), ('4', '4th Year')], blank=True, null=True)
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['first_name', 'last_name']  
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = UserManager()
 
     def __str__(self):
         return self.username
 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    course = models.CharField(max_length=100, default='Unknown')
+    year_level = models.CharField(max_length=100, default='Unknown')
+    
+    def __str__(self):
+        return self.user.username
+    
 # Assignment Model
 class Assignment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link assignment to a user
