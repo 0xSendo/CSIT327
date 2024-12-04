@@ -7,33 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/editjournal.css' %}">
     <title>Edit Journal Entry</title>
-
 </head>
 <body>
-    <h1>Edit Your Journal Entry</h1>
+    <div class="edit-container">
+        <h1>Edit Your Journal Entry</h1>
+        
+        <form method="post">
+            {% csrf_token %}
 
-    <form method="post">
-        {% csrf_token %}
-
-        <!-- Display form errors if any -->
-        {% if form.errors %}
-            <div class="form-errors">
-                <ul>
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                            <li>{{ error }}</li>
+            <!-- Display form errors if any -->
+            {% if form.errors %}
+                <div class="form-errors">
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
                         {% endfor %}
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
 
-        <!-- Display the form fields -->
-        {{ form.as_p }}  <!-- This will render the form fields as paragraph elements -->
+            <!-- Display the form fields -->
+            {{ form.as_p }}  <!-- This will render the form fields as paragraph elements -->
 
-        <button type="submit">Save Changes</button>
-    </form>
-
-    <a href="{% url 'journal' %}" class="back-link">← Back to Journal</a>
+            <button type="submit">Save Changes</button>
+        </form>
+        
+        <a href="{% url 'journal' %}" class="back-link">← Back to Journal</a>
+    </div>
 </body>
 </html>
