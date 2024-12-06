@@ -55,7 +55,7 @@
                 <button id="newAssignmentBtn" class="add-assignment-button">Add New Assignment</button>
             
                 <a href="{% url 'journal' %}">
-                    <button class="journal-button">Add Your Journal</button>
+                    <button class="journal-button">My Journal</button>
                 </a>
             
                 <!-- Filter Dropdown -->
@@ -167,7 +167,7 @@
     if (assignments.length === 0) {
         const message = document.createElement('div');
         message.className = 'no-assignments-message';
-        message.innerHTML = "<p>You have finished all of your tasks, go touch some grass.</p>";
+        message.innerHTML = "<p>There is no assignments</p>";
         assignmentGrid.appendChild(message);
     } else {
         assignments.forEach((assignment, index) => {
@@ -252,6 +252,7 @@ document.getElementById('editAssignmentForm').addEventListener('submit', functio
                 `;
                 finishedList.appendChild(listItem);
             });
+            
         }
     
         // Function to remove a finished assignment
@@ -358,8 +359,25 @@ document.getElementById('editAssignmentForm').addEventListener('submit', functio
     
         // Event listener for submitting the add assignment form
         document.getElementById('assignmentForm').addEventListener('submit', addAssignment);
-    
+        function addAssignment(event) {
+    event.preventDefault();
+    const subjectCode = document.getElementById('subject_code').value;
+    const name = document.getElementById('name').value;
+    const dueDate = document.getElementById('due_date').value;
+
+    const newAssignment = { subjectCode, name, dueDate };
+    assignments.push(newAssignment);
+    localStorage.setItem('assignments', JSON.stringify(assignments));
+
+    document.getElementById('myModal').classList.remove('show');
+    renderAssignments();
+    updateNotification();
+
+    // Display success message after adding assignment
+    alert('Assignment added successfully');
+}
         // Render the assignments initially
+        
         renderAssignments();
         renderFinishedAssignments();
         updateNotification();
