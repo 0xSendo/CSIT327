@@ -7,21 +7,70 @@ Academate is an online website where students can put in their assignments and s
    - Deadline Tracking
 
 ## Installation
-To install, you need to download Python to your computer.
+To install and get the program in working order, you need to install Python to your computer.
+Note: that this program is mostly tested on Windows.
 
 ### Install Python
-To check the version:
+Download Python:
+
+Go to the [Python official website](https://www.python.org/downloads/).
+Click on the download button for the latest version.
+Run the Installer:
+
+Open the downloaded installer.
+Select Add Python to a PATH.
+Click Install Now.
+Verify Installation:
+
+Open Command Prompt.
+Run:
 ```
 python --version
 ```
-or
+This will show the installed Python version.
+
+### Install Python Interpreter 
+The Python interpreter is automatically included when you install Python.
+
+To verify:
+Run python or python3 in the terminal.
+
+You should see a prompt like this in your terminal:
 ```
-py --version
+Python 3.x.x (default, ...)
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
 ```
 
+### Install Pip
+Pip is a package manager for Python and is bundled with Python installations.
+Verify first the Pip Installation:
+
 ```
-pip install
+pip --version
 ```
+If not installed, use the command below.
+
+```
+python -m ensurepip --upgrade
+```
+And verify Pip again
+
+### Install Django
+Create a Virtual Environment:
+
+```
+python -m venv venv
+```
+
+#### Activate the Virtual Environment:
+
+```
+venv\Scripts\activate
+```
+
+You will see (venv) beside the terminal
+
 
 ### Install Django
 If the django folder is within the files, do the following:
