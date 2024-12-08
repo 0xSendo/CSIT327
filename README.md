@@ -39,13 +39,12 @@ This will show the installed Python version.
 
 ### Install Python Interpreter 
 The Python interpreter is automatically included when you install Python.
+Go to search
+Type in ```>Python: Create Environment```
 
-You should see a prompt like this in your terminal:
-```
-Python 3.x.x (default, ...)
-Type "help", "copyright", "credits" or "license" for more information.
->>>
-```
+Choose Venv
+![alt text](https://file.garden/ZRY11nIP2EXOR4n3/GitHub/Screenshot%202024-12-08%20115431.png)
+Pick the Latest Python
 
 ### Install Pip
 Pip is a package manager for Python and is bundled with Python installations.
