@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <title>Home - Academate</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="center-section">
+        <div class="navbar-links center-section">
             <a href="{% url 'navigation' %}#about-us">About Us</a>
             <a href="{% url 'navigation' %}#contacts">Contacts</a>
             <a href="{% url 'navigation' %}#social-media">Social Media</a>
             <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
         </div>
-        <div class="right-section">
+        <div class="navbar-actions right-section">
             <button id="profileBtn" class="profile-btn">Profile</button>
         </div>
     </nav>
@@ -32,18 +35,19 @@
         </div>
     </div>
 
+    <!-- Main Content -->
     <div class="main-content">
         <!-- Finished Assignments Section -->
-        <div class="finished-assignments-section">
+        <section class="finished-assignments-section">
             <h2>Finished Assignments</h2>
             <div id="finishedAssignments">
                 <!-- Finished assignments will be listed here -->
             </div>
-        </div>
+        </section>
 
         <!-- Assignment Section -->
-        <div class="assignment-section">
-            <h1>Welcome to Academate {{ username }}!</h1>
+        <section class="assignment-section">
+            <h1>Welcome to Academate, {{ username }}!</h1>
 
             <!-- Buttons and Sorting Section -->
             <div class="action-buttons">
@@ -76,7 +80,7 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h2>Add New Assignment</h2>
-                    <form id="assignmentForm">
+                    <form id="assignmentForm" onsubmit="return validateForm(event)">
                         <label for="subject_code">Subject Code:</label>
                         <input type="text" id="subject_code" name="subject_code" required>
                         <label for="name">Assignment Name:</label>
@@ -93,7 +97,7 @@
                 <div class="modal-content">
                     <span class="close" id="editClose">&times;</span>
                     <h2>Edit Assignment</h2>
-                    <form id="editAssignmentForm">
+                    <form id="editAssignmentForm" onsubmit="return validateForm(event)">
                         <label for="editSubjectCode">Course Code:</label>
                         <input type="text" id="editSubjectCode" name="editSubjectCode" required>
                         <label for="editName">Assignment Name:</label>
@@ -104,9 +108,10 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Academate. All Rights Reserved.</p>
     </footer>
@@ -119,6 +124,7 @@
         ];
         let finishedAssignments = JSON.parse(localStorage.getItem('finishedAssignments')) || [];
 
+        // Render assignments
         function renderAssignments() {
             const assignmentGrid = document.getElementById('assignmentGrid');
             assignmentGrid.innerHTML = '';
@@ -136,6 +142,7 @@
             });
         }
 
+        // Render finished assignments
         function renderFinishedAssignments() {
             const finishedAssignmentsContainer = document.getElementById('finishedAssignments');
             finishedAssignmentsContainer.innerHTML = '';
@@ -152,6 +159,7 @@
             });
         }
 
+        // Delete an assignment and move it to finished
         function deleteAssignment(index) {
             const finishedAssignment = assignments[index];
             assignments.splice(index, 1);
@@ -162,14 +170,53 @@
             renderFinishedAssignments();
         }
 
+        // Remove a finished assignment
         function removeFinishedAssignment(index) {
             finishedAssignments.splice(index, 1);
             localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
             renderFinishedAssignments();
         }
 
+        // Filter assignments by selected criteria
+        function filterAssignments() {
+            const filterValue = document.getElementById('filter').value;
+            if (filterValue === 'a-z') {
+                assignments.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (filterValue === 'nearest-deadline') {
+                assignments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+            } else if (filterValue === 'far-deadline') {
+                assignments.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
+            }
+            renderAssignments();
+        }
+
+        // Modal controls
+        document.getElementById('profileBtn').addEventListener('click', () => {
+            document.getElementById('profileModal').style.display = 'block';
+        });
+        document.getElementById('profileClose').addEventListener('click', () => {
+            document.getElementById('profileModal').style.display = 'none';
+        });
+        document.getElementById('editClose').addEventListener('click', () => {
+            document.getElementById('editModal').style.display = 'none';
+        });
+
+        // Validate form data before submitting
+        function validateForm(event) {
+            const subjectCode = event.target.subject_code.value;
+            const name = event.target.name.value;
+            const dueDate = event.target.due_date.value;
+            if (!subjectCode || !name || !dueDate) {
+                alert("Please fill all the fields!");
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+
         renderAssignments();
         renderFinishedAssignments();
     </script>
 </body>
+
 </html>
