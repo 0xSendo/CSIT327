@@ -43,7 +43,9 @@ Go to search
 Type in ```>Python: Create Environment```
 
 Choose Venv
+
 ![alt text](https://file.garden/ZRY11nIP2EXOR4n3/GitHub/Screenshot%202024-12-08%20115431.png)
+
 Pick the Latest Python
 
 ### Install Pip
@@ -70,15 +72,12 @@ python -m venv venv
 #### Activate the Virtual Environment:
 
 ```
-venv\Scripts\activate
+.venv\Scripts\activate
 ```
 
 You will see (venv) beside the terminal
 
 
-### Install Django
-If the django folder is within the files, do the following:
-Change 
 
 
 # Documentation
