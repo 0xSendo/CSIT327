@@ -98,5 +98,5 @@ http://127.0.0.1:8080/
 
 # Documentation
 [Gantt Chart](https://docs.google.com/spreadsheets/d/1ca0ybWjHeHQHuCkDHali0feMHRCaOgq4j0gzN7t9cD8/edit?usp=sharing)
-[ERD AcadeMate] ([https://lucid.app/lucidchart/1e2a0030-431b-4dad-902a-bf9d04b5078b/edit?beaconFlowId=D3E64F2F9FDCF064&invitationId=inv_7444dbf4-1a15-4216-b5e5-c79ac698f0ee&page=0_0#](https://lucid.app/lucidchart/1e2a0030-431b-4dad-902a-bf9d04b5078b/edit?beaconFlowId=D3E64F2F9FDCF064&invitationId=inv_7444dbf4-1a15-4216-b5e5-c79ac698f0ee&page=0_0#)).
+[ERD AcadeMate] ([ERD AcadeMate](https://lucid.app/lucidchart/1e2a0030-431b-4dad-902a-bf9d04b5078b/edit?beaconFlowId=D3E64F2F9FDCF064&invitationId=inv_7444dbf4-1a15-4216-b5e5-c79ac698f0ee&page=0_0#)).
 [UX/UI](https://www.figma.com/design/2axIfrvskVSAeCO6U2j7RO/Untitled?node-id=0-1&t=SK59hRDDq0a7CAFe-1)
