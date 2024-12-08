@@ -1,14 +1,16 @@
 # About Academate
-Academate is an online website where students can put in their assignments and set a reminder and add additional journal entries
+Academate is an online platform designed to help students stay organized and productive. At Academate, we believe in empowering students to stay organized and on top of their academic responsibilities. Our platform provides tools that help you manage assignments, track deadlines, and stay focused on your goals. We aim to make student life less stressful by helping you manage your academic tasks efficiently.
 
 ## Features
-   - Assignment tracking
-   
-   - Journal
-   This acts as a notepad
+With Academate, students can:
+   - Upload and Track Assignments
+   Track your assignments! Input your subject title, a short description of your assignment and the deadline. You can view your finished assignments in case you wish to view it again or retrieve it.
+
+   - Add Journal Entries
+   This is where you can store your notes! You can use this to track your entries of your notes and reflections
    
    - Deadline Tracking
-   This feature shows the nearest deadline for the assignment
+   This feature shows the nearest deadline and assignment via notification
 
 ## Installation
 To install and get the program in working order, you need to install Python to your computer.
@@ -74,11 +76,25 @@ python -m venv venv
 ```
 .venv\Scripts\activate
 ```
+0r
 
+```
+venv\Scripts\activate
+```
 You will see (venv) beside the terminal
 
+```
+cd Academate/IM2
+```
 
+```
+python manage.py runserver
+```
 
+Ctrl + Right click
+```
+http://127.0.0.1:8080/
+```
 
 # Documentation
 [Gantt Chart](https://docs.google.com/spreadsheets/d/1ca0ybWjHeHQHuCkDHali0feMHRCaOgq4j0gzN7t9cD8/edit?usp=sharing)
