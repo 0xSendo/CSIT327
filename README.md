@@ -3,8 +3,12 @@ Academate is an online website where students can put in their assignments and s
 
 ## Features
    - Assignment tracking
+   
    - Journal
+   This acts as a notepad
+   
    - Deadline Tracking
+   This feature shows the nearest deadline for the assignment
 
 ## Installation
 To install and get the program in working order, you need to install Python to your computer.
@@ -18,7 +22,7 @@ Click on the download button for the latest version.
 Run the Installer:
 
 Open the downloaded installer.
-Select Add Python to a PATH.
+Select Add Python to a PATH (remember the path of your Python)
 Click Install Now.
 Verify Installation:
 
@@ -27,13 +31,14 @@ Run:
 ```
 python --version
 ```
+or
+```
+py --version
+```
 This will show the installed Python version.
 
 ### Install Python Interpreter 
 The Python interpreter is automatically included when you install Python.
-
-To verify:
-Run python or python3 in the terminal.
 
 You should see a prompt like this in your terminal:
 ```
