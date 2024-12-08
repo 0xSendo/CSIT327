@@ -1,103 +1,82 @@
-ds
-ds
-ds
-d
-sd
-sd
-sds
-ds
-d
-sdsd
-sd
-s
-ds
-ds
-ds
-d
-sd
-s
-ds
-d
-s
-ds
-dsds
-d
-sd
-s
-ds
-ds
-d
-s
-ds
-d
-sd
-s
-dsd
-s
-d
-sd
-s
-d
-sd
-s
-ds
-ds
-ds
-ds
-d
-s
-dsd
-sdsds
-d
-sd
-s
-ds
-d
-s
-ds
-d
-s
-d
-sd
-s
-dsd
-sd
-s
-d
-sd
-s
-ds
-d
-s
-ds
-ds
-d
-sd
-s
-ds
-d
-sd
-s
-ds
-d
-sd
-s
-dsdsd
-s
-ds
-d
-s
-ds
-d
-sd
-sdsd
-s
-sd
+{% load static %}
 
-ds
-d
-s
-ds
-d
-sdsds
-d
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/journal.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Journal</title>
+</head>
+<body>
+    <div class="container">
+        <section class="sidebar previous-entries">
+            <h2>Journal Entries</h2>
+            
+            <!-- Filter Input -->
+            <div class="filter-container">
+                <input type="text" id="filter-input" placeholder="Search entries..." />
+            </div>
+            
+            <ul id="entry-list">
+                {% for entry in journal_entries %}
+                    <li class="entry-item">
+                        <h3>{{ entry.title }}</h3>
+                        <p>{{ entry.content|truncatechars:25 }}</p>
+                        <div class="entry-buttons">
+                            <a href="{% url 'edit_journal_entry' entry.id %}" class="button">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{% url 'delete_journal_entry' entry.id %}" class="button delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="empty">No entries yet. Start writing your thoughts!</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <div class="main-content">
+            <header>
+                <h1>Your Journal</h1>
+            </header>
+            <section class="entry-form">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn-submit">Add Entry</button>
+                </form>
+            </section>
+            <a href="{% url 'home' %}" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>    
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterInput = document.getElementById('filter-input');
+            const entryList = document.getElementById('entry-list');
+            const entries = entryList.querySelectorAll('.entry-item');
+
+            filterInput.addEventListener('input', () => {
+                const filterValue = filterInput.value.toLowerCase();
+                
+                entries.forEach(entry => {
+                    const title = entry.querySelector('h3').textContent.toLowerCase();
+                    const content = entry.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(filterValue) || content.includes(filterValue)) {
+                        entry.style.display = '';
+                    } else {
+                        entry.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
