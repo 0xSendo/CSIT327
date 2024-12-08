@@ -63,6 +63,7 @@
                         <option value="a-z">A-Z</option>
                         <option value="nearest-deadline">Nearest Deadline</option>
                         <option value="far-deadline">Furthest Deadline</option>
+                        <option value="priority">Priority</option>
                     </select>
                 </div>
             </div>
@@ -87,6 +88,12 @@
                         <input type="text" id="name" name="name" required>
                         <label for="due_date">Due Date:</label>
                         <input type="date" id="due_date" name="due_date" required>
+                        <label for="priority">Priority:</label>
+                        <select id="priority" name="priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
                         <input type="submit" value="Add Assignment">
                     </form>
                 </div>
@@ -104,6 +111,12 @@
                         <input type="text" id="editName" name="editName" required>
                         <label for="editDueDate">Due Date:</label>
                         <input type="date" id="editDueDate" name="editDueDate" required>
+                        <label for="editPriority">Priority:</label>
+                        <select id="editPriority" name="editPriority" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
                         <input type="submit" value="Update Assignment">
                     </form>
                 </div>
@@ -118,9 +131,9 @@
 
     <script>
         let assignments = JSON.parse(localStorage.getItem('assignments')) || [
-            { subjectCode: "MATH101", name: "Math Homework", dueDate: "2024-10-25" },
-            { subjectCode: "SCI102", name: "Science Project", dueDate: "2024-10-30" },
-            { subjectCode: "ENG103", name: "English Essay", dueDate: "2024-10-28" },
+            { subjectCode: "MATH101", name: "Math Homework", dueDate: "2024-10-25", priority: "medium" },
+            { subjectCode: "SCI102", name: "Science Project", dueDate: "2024-10-30", priority: "high" },
+            { subjectCode: "ENG103", name: "English Essay", dueDate: "2024-10-28", priority: "low" },
         ];
         let finishedAssignments = JSON.parse(localStorage.getItem('finishedAssignments')) || [];
 
@@ -135,6 +148,7 @@
                     <h3>${assignment.subjectCode}</h3>
                     <p>${assignment.name}</p>
                     <p>Due Date: ${assignment.dueDate}</p>
+                    <p>Priority: ${assignment.priority}</p>
                     <button onclick="editAssignment(${index})">Edit</button>
                     <button onclick="deleteAssignment(${index})">Mark as Done</button>
                 `;
@@ -186,6 +200,11 @@
                 assignments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
             } else if (filterValue === 'far-deadline') {
                 assignments.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate));
+            } else if (filterValue === 'priority') {
+                assignments.sort((a, b) => {
+                    const priorityOrder = { "low": 1, "medium": 2, "high": 3 };
+                    return priorityOrder[b.priority] - priorityOrder[a.priority];
+                });
             }
             renderAssignments();
         }
@@ -206,7 +225,8 @@
             const subjectCode = event.target.subject_code.value;
             const name = event.target.name.value;
             const dueDate = event.target.due_date.value;
-            if (!subjectCode || !name || !dueDate) {
+            const priority = event.target.priority.value;
+            if (!subjectCode || !name || !dueDate || !priority) {
                 alert("Please fill all the fields!");
                 event.preventDefault();
                 return false;
