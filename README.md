@@ -1,4 +1,4 @@
-# About Academate
++# About Academate
 Academate is an online platform designed to help students stay organized and productive. At Academate, we believe in empowering students to stay organized and on top of their academic responsibilities. Our platform provides tools that help you manage assignments, track deadlines, and stay focused on your goals. We aim to make student life less stressful by helping you manage your academic tasks efficiently.
 
 ## Features
@@ -112,6 +112,6 @@ http://127.0.0.1:8080/
 </p>
 
 <p align="center">
-  <img width="260" height="200" src="![image](https://github.com/user-attachments/assets/f3e90e5c-2513-4fff-b225-1160d8cdd01e)
+  <img width="260" height="200" src="![image](https://file.garden/ZRY11nIP2EXOR4n3/IMG_20241209_123316.jpg)
 ">
 </p>
