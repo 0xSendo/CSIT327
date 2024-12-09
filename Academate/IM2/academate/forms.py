@@ -1,11 +1,15 @@
 from django import forms
+
 from django.contrib.auth.hashers import make_password
+
 from .models import User, Assignment
 from .models import Journal
+
 from django.contrib.auth.models import User
 
 from django import forms
 from django.contrib.auth.hashers import make_password
+
 from .models import User
 
 class UserRegistrationForm(forms.ModelForm):
@@ -14,12 +18,14 @@ class UserRegistrationForm(forms.ModelForm):
         required=True, 
         error_messages={'required': 'Password is required.'} 
     )
+    
     confirm_password = forms.CharField(
         widget=forms.PasswordInput,
         label='Confirm Password',
         required=True,  
         error_messages={'required': 'Please confirm your password.'}  
     )
+    
     course = forms.CharField(max_length=100, required=True, label="Course")
     year_level = forms.ChoiceField(
         choices=[('1', '1st Year'), ('2', '2nd Year'), ('3', '3rd Year'), ('4', '4th Year')],
@@ -58,9 +64,11 @@ class AssignmentForm(forms.ModelForm):
     
     def clean_due_date(self):
         due_date = self.cleaned_data.get('due_date')
+        
         if due_date < timezone.now().date():
             raise forms.ValidationError("Due date cannot be in the past.")
         return due_date
+        
 class JournalForm(forms.ModelForm):
     class Meta:
         model = Journal
@@ -71,6 +79,7 @@ class UserProfileForm(forms.ModelForm):
         model = User  # Ensure this is the correct User model
         fields = ['username', 'first_name', 'last_name', 'password']  # Remove 'email' if it's not defined in the model
 
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.PasswordInput()
