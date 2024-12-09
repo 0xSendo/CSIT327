@@ -1,17 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
-
 from .forms import UserRegistrationForm, AssignmentForm, JournalForm
-
 from .models import Assignment, Journal
 
 from django.contrib.auth import login, logout  # Ensure login is imported
 from django.contrib.auth.decorators import login_required
-
 from django.http import HttpResponseRedirect
-
 from django.contrib import messages
-
 from .models import Profile 
 
 
