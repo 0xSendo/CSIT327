@@ -4,7 +4,6 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-  
     overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
@@ -172,6 +171,7 @@ body {
     height: auto; /* Maintain aspect ratio */
     display: block;
 }
+
 
 .footer {
     text-align: center;
