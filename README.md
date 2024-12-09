@@ -100,3 +100,10 @@ http://127.0.0.1:8080/
 
 [ERD AcadeMate](https://lucid.app/lucidchart/1e2a0030-431b-4dad-902a-bf9d04b5078b/edit?beaconFlowId=D3E64F2F9FDCF064&invitationId=inv_7444dbf4-1a15-4216-b5e5-c79ac698f0ee&page=0_0#)
 [UX/UI](https://www.figma.com/design/2axIfrvskVSAeCO6U2j7RO/Untitled?node-id=0-1&t=SK59hRDDq0a7CAFe-1)
+
+
+# Contributors
+![image](https://github.com/user-attachments/assets/1683e422-626d-4fee-94f5-612be4e0b0ab)
+![image](https://github.com/user-attachments/assets/ea1486f9-c38e-47fd-8059-f4526c25d326)
+![image](https://github.com/user-attachments/assets/a4e601d1-a6d5-4382-8b95-1470d7329290)
+
