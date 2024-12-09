@@ -103,7 +103,10 @@ http://127.0.0.1:8080/
 
 
 # Contributors
-![image](https://github.com/user-attachments/assets/1683e422-626d-4fee-94f5-612be4e0b0ab)
-![image](https://github.com/user-attachments/assets/ea1486f9-c38e-47fd-8059-f4526c25d326)
-![image](https://github.com/user-attachments/assets/a4e601d1-a6d5-4382-8b95-1470d7329290)
+<img align="left" width="100" height="100" src="![image](https://github.com/user-attachments/assets/ba89c656-6087-42c6-aa61-7699939a2080)
+">
+<img align="left" width="100" height="100" src="![image](https://github.com/user-attachments/assets/981261f1-a1bd-49c4-9696-9bae8a665deb)
+">
+<img align="left" width="100" height="100" src="![image](https://github.com/user-attachments/assets/873b1347-f10e-43b1-aab0-dc3162fd4821)
+">
 
