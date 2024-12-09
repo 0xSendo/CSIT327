@@ -12,6 +12,7 @@
 
 <body>
     <nav class="navbar">
+        
         <div class="a">
             <a href="/home"><i class="fa fa-fw fa-home"></i> Home</a>
             <a href="{% url 'navigation' %}#about-us">About Us</a>
@@ -19,14 +20,17 @@
             <a href="{% url 'navigation' %}#social-media">Social Media</a>
             <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
         </div>
+        
         <div class="split">
             <a id="profileBtn" role="button" href="#"> <i class="fa fa-fw fa-user"></i>Profile</a>
         </div>
+        
     </nav>
 
     <!-- Profile Modal -->
     <div id="profileModal" class="modal">
         <div class="modal-content">
+            
             <span class="close" id="profileClose">&times;</span>
             <h2>Profile</h2>
             <p>Welcome to your profile!</p>
@@ -41,6 +45,7 @@
                 <button class="edit-profile-button">Edit Profile</button>
             </a>
         </div>
+        
     </div>
 
     <div class="main-content">
@@ -64,9 +69,11 @@
                 <div class="filter-section">
                     <label for="filter">Sort By:</label>
                     <select id="filter" onchange="filterAssignments()">
+                        
                         <option value="a-z">A-Z</option>
                         <option value="nearest-deadline">Nearest Deadline</option>
                         <option value="far-deadline">Furthest Deadline</option>
+                        
                     </select>
                 </div>
             </div>
@@ -75,6 +82,7 @@
             <div id="finishedModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="finishedClose">&times;</span>
+                    
                     <h2>Finished Assignments</h2>
                     <ul id="finishedList">
                         <!-- List of finished assignments will appear here -->
@@ -95,13 +103,17 @@
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <h2>Add New Assignment</h2>
+                    
                     <form id="assignmentForm">
                         <label for="subject_code">Subject Code:</label>
                         <input type="text" id="subject_code" name="subject_code" required>
+                        
                         <label for="name">Assignment Name:</label>
                         <input type="text" id="name" name="name" required>
+                        
                         <label for="due_date">Due Date:</label>
                         <input type="date" id="due_date" name="due_date" required>
+                        
                         <input type="submit" value="Add Assignment">
                     </form>
                 </div>
@@ -112,13 +124,17 @@
                 <div class="modal-content">
                     <span class="close" id="editClose">&times;</span>
                     <h2>Edit Assignment</h2>
+                    
                     <form id="editAssignmentForm">
                         <label for="editSubjectCode">Course Code:</label>
                         <input type="text" id="editSubjectCode" name="editSubjectCode" required>
+                        
                         <label for="editName">Assignment Name:</label>
                         <input type="text" id="editName" name="editName" required>
+                        
                         <label for="editDueDate">Due Date:</label>
                         <input type="date" id="editDueDate" name="editDueDate" required>
+                        
                         <input type="submit" value="Update Assignment">
                     </form>
                 </div>
