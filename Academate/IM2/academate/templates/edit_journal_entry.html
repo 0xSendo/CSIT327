@@ -2,13 +2,16 @@
 
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/editjournal.css' %}">
     <title>Edit Journal Entry</title>
 </head>
+    
 <body>
+    
     <div class="edit-container">
         <h1>Edit Your Journal Entry</h1>
         
@@ -17,6 +20,7 @@
 
             <!-- Display form errors if any -->
             {% if form.errors %}
+            
                 <div class="form-errors">
                     <ul>
                         {% for field in form %}
@@ -26,6 +30,7 @@
                         {% endfor %}
                     </ul>
                 </div>
+            
             {% endif %}
 
             <!-- Display the form fields -->
@@ -37,4 +42,5 @@
         <a href="{% url 'journal' %}" class="back-link">← Back to Journal</a>
     </div>
 </body>
+    
 </html>
