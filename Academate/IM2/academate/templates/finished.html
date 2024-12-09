@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     {% load static %}
     <meta charset="UTF-8">
@@ -7,27 +8,34 @@
     <title>Home</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 </head>
+    
 <body>
     <nav class="navbar">
+        
         <div class="center-section">
             <a href="{% url 'navigation' %}#about-us">About Us</a>
             <a href="{% url 'navigation' %}#contacts">Contacts</a>
             <a href="{% url 'navigation' %}#social-media">Social Media</a>
             <a href="{% url 'navigation' %}#our-goal">Our Goal</a>
         </div>
+        
         <div class="right-section">
             <button id="profileBtn" class="profile-btn">Profile</button>
         </div>
+        
     </nav>
 
     <!-- Profile Modal -->
     <div id="profileModal" class="modal">
+        
         <div class="modal-content">
             <span class="close" id="profileClose">&times;</span>
             <h2>Profile</h2>
             <p>Welcome to your profile!</p>
+            
             <a href="{% url 'logout' %}">
                 <button class="logout-button">Logout</button>
+                
             </a>
         </div>
     </div>
@@ -48,6 +56,7 @@
             <!-- Buttons and Sorting Section -->
             <div class="action-buttons">
                 <button id="newAssignmentBtn" class="add-assignment-button">Add New Assignment</button>
+                
                 <a href="{% url 'journal' %}">
                     <button class="journal-button">Add Your Journal</button>
                 </a>
@@ -56,9 +65,11 @@
                 <div class="filter-section">
                     <label for="filter">Sort By:</label>
                     <select id="filter" onchange="filterAssignments()">
+                        
                         <option value="a-z">A-Z</option>
                         <option value="nearest-deadline">Nearest Deadline</option>
                         <option value="far-deadline">Furthest Deadline</option>
+                        
                     </select>
                 </div>
             </div>
@@ -74,15 +85,21 @@
             <!-- Modal for Adding Assignments -->
             <div id="myModal" class="modal">
                 <div class="modal-content">
+                    
                     <span class="close">&times;</span>
+                    
                     <h2>Add New Assignment</h2>
                     <form id="assignmentForm">
+                        
                         <label for="subject_code">Subject Code:</label>
                         <input type="text" id="subject_code" name="subject_code" required>
+                        
                         <label for="name">Assignment Name:</label>
                         <input type="text" id="name" name="name" required>
+                        
                         <label for="due_date">Due Date:</label>
                         <input type="date" id="due_date" name="due_date" required>
+                        
                         <input type="submit" value="Add Assignment">
                     </form>
                 </div>
@@ -92,14 +109,19 @@
             <div id="editModal" class="modal">
                 <div class="modal-content">
                     <span class="close" id="editClose">&times;</span>
+                    
                     <h2>Edit Assignment</h2>
                     <form id="editAssignmentForm">
+                        
                         <label for="editSubjectCode">Course Code:</label>
                         <input type="text" id="editSubjectCode" name="editSubjectCode" required>
+                        
                         <label for="editName">Assignment Name:</label>
                         <input type="text" id="editName" name="editName" required>
+                        
                         <label for="editDueDate">Due Date:</label>
                         <input type="date" id="editDueDate" name="editDueDate" required>
+                        
                         <input type="submit" value="Update Assignment">
                     </form>
                 </div>
@@ -119,6 +141,7 @@
         ];
         let finishedAssignments = JSON.parse(localStorage.getItem('finishedAssignments')) || [];
 
+        
         function renderAssignments() {
             const assignmentGrid = document.getElementById('assignmentGrid');
             assignmentGrid.innerHTML = '';
@@ -135,6 +158,7 @@
                 assignmentGrid.appendChild(card);
             });
         }
+        
 
         function renderFinishedAssignments() {
             const finishedAssignmentsContainer = document.getElementById('finishedAssignments');
@@ -152,6 +176,7 @@
             });
         }
 
+        
         function deleteAssignment(index) {
             const finishedAssignment = assignments[index];
             assignments.splice(index, 1);
@@ -162,6 +187,7 @@
             renderFinishedAssignments();
         }
 
+        
         function removeFinishedAssignment(index) {
             finishedAssignments.splice(index, 1);
             localStorage.setItem('finishedAssignments', JSON.stringify(finishedAssignments));
@@ -169,7 +195,10 @@
         }
 
         renderAssignments();
+        
         renderFinishedAssignments();
+        
     </script>
+    
 </body>
 </html>
