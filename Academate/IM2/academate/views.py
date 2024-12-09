@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
+
 from .forms import UserRegistrationForm, AssignmentForm, JournalForm
+
 from .models import Assignment, Journal
+
 from django.contrib.auth import login, logout  # Ensure login is imported
 from django.contrib.auth.decorators import login_required
+
 from django.http import HttpResponseRedirect
+
 from django.contrib import messages
+
 from .models import Profile 
 
 
@@ -13,8 +19,11 @@ from .models import Profile
 def render_home(request):
     assignments = Assignment.objects.filter(user=request.user)
     username = request.user.username
+    
     # Access course and year_level directly from the User model
+    
     course = request.user.course or 'Unknown'  # Use default 'Unknown' if course is None
+    
     year_level = request.user.year_level or 'Unknown'  # Use default 'Unknown' if year_level is None
     return render(request, 'home.html', {
         'assignments': assignments,
@@ -28,6 +37,7 @@ def render_home(request):
 def render_register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
+        
         if form.is_valid():
             # Create the user with the provided fields
             user = form.save(commit=False)
@@ -49,8 +59,10 @@ def render_register(request):
 def login_view(request):
     if request.method == "POST":
         form = UserLoginForm(request.POST)
+        
         if form.is_valid():
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+            
             if user is not None:
                 auth_login(request, user)
                 return redirect('home')  # Redirect to home or wherever after successful login
@@ -63,6 +75,7 @@ def login_view(request):
 def create_assignment(request):
     if request.method == 'POST':
         form = AssignmentForm(request.POST)
+        
         if form.is_valid():
             assignment = form.save(commit=False)
             assignment.user = request.user  # Set the current user
@@ -91,6 +104,7 @@ def delete_assignment(request, assignment_id):
 def journal_view(request):
     if request.method == "POST":
         form = JournalForm(request.POST)
+        
         if form.is_valid():
             # Save the new journal entry with both title and content
             new_entry = form.save(commit=False)
@@ -105,14 +119,17 @@ def journal_view(request):
 
     # Retrieve all entries by the current user, ordered by date (most recent first)
     journal_entries = Journal.objects.filter(user=request.user).order_by('-created_at')
+    
     return render(request, 'journal.html', {'journal_entries': journal_entries, 'form': form})
 
 # Edit journal entry
 @login_required
 def edit_journal_entry(request, entry_id):
     journal_entry = get_object_or_404(Journal, id=entry_id, user=request.user)
+    
     if request.method == 'POST':
         form = JournalForm(request.POST, instance=journal_entry)
+        
         if form.is_valid():
             form.save()
             return redirect('journal')
@@ -126,11 +143,13 @@ def edit_journal_entry(request, entry_id):
 def delete_journal_entry(request, entry_id):
     journal_entry = get_object_or_404(Journal, id=entry_id, user=request.user)
     journal_entry.delete()
+    
     return redirect('journal')
 
 # Logout view
 def custom_logout_view(request):
     logout(request)
+    
     return redirect('landing')  # Correct the redirect to the URL name
 
 # Navigation view (if applicable)
@@ -187,6 +206,7 @@ def some_view(request):
 def delete_journal_entry(request, entry_id):
     journal_entry = get_object_or_404(Journal, id=entry_id, user=request.user)
     journal_entry.delete()
+    
     return redirect('journal')
 
 @login_required
@@ -194,7 +214,10 @@ def delete_journal_entry(request, entry_id):
     try:
         journal_entry = get_object_or_404(Journal, id=entry_id, user=request.user)
         journal_entry.delete()
+        
         return redirect('journal')
+        
     except Exception as e:
         print(f"Error deleting journal entry: {e}")
+        
         return redirect('journal')
