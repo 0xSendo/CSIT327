@@ -112,6 +112,5 @@ http://127.0.0.1:8080/
 </p>
 
 <p align="center">
-  <img width="260" height="200" src="![image](https://file.garden/ZRY11nIP2EXOR4n3/IMG_20241209_123316.jpg)
-">
+  <img width="260" height="200" src="https://file.garden/ZRY11nIP2EXOR4n3/IMG_20241209_123316.jpg">
 </p>
