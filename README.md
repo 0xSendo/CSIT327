@@ -1,4 +1,4 @@
-# About Academate
+![image](https://github.com/user-attachments/assets/e5fb472d-2100-480e-b1a3-6e2621f7afb9)![image](https://github.com/user-attachments/assets/bb145e12-b0a0-4177-a19c-8f14af2a5119)# About Academate
 Academate is an online platform designed to help students stay organized and productive. At Academate, we believe in empowering students to stay organized and on top of their academic responsibilities. Our platform provides tools that help you manage assignments, track deadlines, and stay focused on your goals. We aim to make student life less stressful by helping you manage your academic tasks efficiently.
 
 ## Features
@@ -103,10 +103,15 @@ http://127.0.0.1:8080/
 
 
 # Contributors
-<img align="left" width="100" height="100" src="![image](https://github.com/user-attachments/assets/ba89c656-6087-42c6-aa61-7699939a2080)
-">
-<img align="left" width="100" height="100" src="![image](https://github.com/user-attachments/assets/981261f1-a1bd-49c4-9696-9bae8a665deb)
-">
-<img align="left" width="100" height="100" src="![image](https://github.com/user-attachments/assets/873b1347-f10e-43b1-aab0-dc3162fd4821)
-">
+<p align="center">
+  <img width="260" height="200" src="https://scontent.fceb2-2.fna.fbcdn.net/v/t39.30808-1/462101278_508801152002813_5193789042383961383_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=102&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeEMMWbT_fCH4rWX5Q_gCcn4bfDM77yYbHZt8MzvvJhsdtps3NIkm5PrrzjJJ6X399eQTIuBFNEPw3ZIA_nJHQc-&_nc_ohc=qGQlkNnmPtQQ7kNvgGoyueG&_nc_zt=24&_nc_ht=scontent.fceb2-2.fna&_nc_gid=ALrV74R9dQl7aNO1x6stbm9&oh=00_AYDYDsf5Mw1lRM7St6ABmndVI3Bjuo5bm4jV7ieatyF3Yw&oe=675C4CD9">
+</p>
 
+<p align="center">
+  <img width="260" height="200" src="https://scontent.fceb2-2.fna.fbcdn.net/v/t39.30808-6/415970330_2590786074411541_3314234198786471097_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHhZyMkf_b7wKxsg2PDT_1Z5YxOcOsphNDljE5w6ymE0B8GnmD4l23v19rlPMQp6M4SddCqn8O7SnMy_HJ4V_0R&_nc_ohc=uGjyNoXy1AMQ7kNvgE2HfLj&_nc_zt=23&_nc_ht=scontent.fceb2-2.fna&_nc_gid=AVdu2qCVHzmBjTFtVrC32At&oh=00_AYAAXa0pjnmkDca1Ikhfnm85dqxItwAZIZo8ONoVbwr7kA&oe=675C5086">
+</p>
+
+<p align="center">
+  <img width="260" height="200" src="![image](https://github.com/user-attachments/assets/f3e90e5c-2513-4fff-b225-1160d8cdd01e)
+">
+</p>
