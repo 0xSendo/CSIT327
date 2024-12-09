@@ -5,6 +5,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f9fafc;
@@ -14,6 +15,7 @@ body {
     min-height: 100vh;
     padding: 30px; /* Increased padding for better spacing */
 }
+
 
 /* General Layout */
 .container {
@@ -26,6 +28,7 @@ body {
     overflow: hidden;
     padding: 20px; /* Added internal padding */
 }
+
 
 /* Sidebar Styling */
 .sidebar {
@@ -40,16 +43,19 @@ body {
     border-radius: 12px; /* Added rounded corners */
 }
 
+
 .sidebar h2 {
     font-size: 2rem; /* Larger font for the title */
     margin-bottom: 20px;
 }
+
 
 .sidebar ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
 
 .sidebar li {
     background-color: #ffffff22;
@@ -62,19 +68,23 @@ body {
     align-items: center;
 }
 
+
 .sidebar li:hover {
     background-color: #ffffff33; /* Softer hover effect */
 }
+
 
 .sidebar h3 {
     font-size: 1.4rem; /* Larger text for titles */
     margin-bottom: 8px;
 }
 
+
 .sidebar p {
     font-size: 1rem; /* Slightly larger content font */
     color: #cce4ff;
 }
+
 
 /* Entry Content */
 .entry-content {
@@ -82,11 +92,13 @@ body {
     margin-right: 10px;
 }
 
+
 /* Entry Buttons */
 .entry-buttons {
     display: flex;
     gap: 10px;
 }
+
 
 .entry-buttons .button {
     text-decoration: none;
@@ -98,14 +110,17 @@ body {
     transition: transform 0.2s, background-color 0.2s;
 }
 
+
 .entry-buttons .button:hover {
     background: #218838;
     transform: translateY(-2px);
 }
 
+
 .entry-buttons .delete {
     background-color: #dc3545;
 }
+
 
 .entry-buttons .delete:hover {
     background-color: #c82333;
@@ -117,6 +132,7 @@ body {
     padding: 40px; /* Increased padding */
     text-align: center;
 }
+
 
 header h1 {
     font-size: 3rem; /* Larger header font */
@@ -132,7 +148,16 @@ header h1 {
     gap: 25px; /* More spacing between inputs */
 }
 
-form input, form textarea {
+
+form input {
+    padding: 15px 20px;
+    border: 1.5px solid #ddd; 
+    border-radius: 10px; 
+    font-size: 1.2rem; 
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+form textarea {
     padding: 15px 20px; /* Larger input padding */
     border: 1.5px solid #ddd; /* Slightly thicker border */
     border-radius: 10px; /* Softer corners */
@@ -141,7 +166,12 @@ form input, form textarea {
     transition: border-color 0.3s;
 }
 
-form input:focus, form textarea:focus {
+form input:focus{
+    border-color: #007bff;
+    outline: none;
+}
+
+form textarea:focus {
     border-color: #007bff;
     outline: none;
 }
@@ -154,6 +184,7 @@ form input:focus, form textarea:focus {
     background: #007bff;
     color: white;
     cursor: pointer;
+    
     transition: transform 0.2s, background-color 0.3s;
 }
 
@@ -161,6 +192,7 @@ form input:focus, form textarea:focus {
     background: #0056b3;
     transform: translateY(-3px);
 }
+
 
 /* Back Link */
 .back-link {
@@ -171,9 +203,11 @@ form input:focus, form textarea:focus {
     font-size: 1.1rem;
 }
 
+
 .back-link:hover {
     text-decoration: underline;
 }
+
 
 /* Filter Input */
 .filter-container {
@@ -183,14 +217,17 @@ form input:focus, form textarea:focus {
     align-items: center;
 }
 
+
 #filter-input {
     width: 100%;
     max-width: 350px; /* Larger input field width */
     padding: 12px 18px; /* Increased padding */
     font-size: 1.2rem; /* Larger font size */
     border: 1.5px solid #ddd; /* Thicker border */
+    
     border-radius: 10px;
     background-color: #f9f9f9;
+    
     transition: border-color 0.3s;
 }
 
