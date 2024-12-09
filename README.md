@@ -3,14 +3,10 @@ Academate is an online platform designed to help students stay organized and pro
 
 ## Features
 With Academate, students can:
-   - Upload and Track Assignments
-   Track your assignments! Input your subject title, a short description of your assignment and the deadline. You can view your finished assignments in case you wish to view it again or retrieve it.
-
-   - Add Journal Entries
-   This is where you can store your notes! You can use this to track your entries of your notes and reflections
-   
-   - Deadline Tracking
-   This feature shows the nearest deadline and assignment via notification
+   - Upload and Track Assignments - Track your assignments! Input your subject title, a short description of your assignment and the deadline. You can view your finished assignments in case you wish to view it again or retrieve it.
+   - Filtering your assignements - You can filter through it via alphabetical order, nearest deadline or the farthest deadline of the assigment
+   - Add Journal Entries - This is where you can store your notes! You can use this to track your entries of your notes and reflections
+   - Deadline Tracking - This feature shows the nearest deadline and assignment via notification
 
 ## Installation
 To install and get the program in working order, you need to install Python to your computer.
